@@ -66,14 +66,13 @@ namespace Services
                 }
                 
                 var type = script.GetClass();
-                var service = Activator.CreateInstance(type);
-                if (service == null)
+                if (type == null)
                 {
-                    Debug.LogWarning($"Service {type.Name} is null!");
+                    Debug.LogWarning($"Missing script type {script.name} in service pack!");
                     continue;
                 }
-
-                result[i] = service;
+                
+                result[i] = Activator.CreateInstance(type);
             }
 
             return result;

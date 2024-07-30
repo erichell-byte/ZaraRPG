@@ -58,7 +58,7 @@ namespace Purchasing
             this.storeController = controller;
             this.isLoading = false;
             this.IsInitialized = true;
-            
+
             var initResult = new InitResult
             {
                 isSuccess = true
@@ -71,7 +71,7 @@ namespace Purchasing
         {
             this.isLoading = false;
             this.IsInitialized = false;
-            
+
             var initResult = new InitResult
             {
                 isSuccess = false,
@@ -110,13 +110,13 @@ namespace Purchasing
         void IStoreListener.OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
         {
             this.isPurchasing = false;
-            
+
             for (int i = 0, count = this.failListeners.Count; i < count; i++)
             {
                 var observer = this.failListeners[i];
                 observer.OnFailed(product, failureReason);
             }
-            
+
             var result = new PurchaseResult
             {
                 isSuccess = false,
@@ -136,14 +136,14 @@ namespace Purchasing
                 var observer = this.completeListeners[i];
                 observer.OnComplete(args);
             }
-            
+
             var result = new PurchaseResult
             {
                 isSuccess = true
             };
 
             this.purchaseCallback?.Invoke(result);
-            this.purchaseCallback = null;      
+            this.purchaseCallback = null;
             return PurchaseProcessingResult.Complete;
         }
 
@@ -183,7 +183,7 @@ namespace Purchasing
         {
             this.completeListeners.AddRange(listeners);
         }
-        
+
         public void AddCompleteListener(ICompleteListener listener)
         {
             this.completeListeners.Add(listener);
@@ -205,7 +205,7 @@ namespace Purchasing
         }
 
         public void RemoveFailListener(IFailListener listener)
-         {
+        {
             this.failListeners.Remove(listener);
         }
     }

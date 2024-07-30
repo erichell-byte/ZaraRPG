@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tutorial
 {
-    public sealed class TutorialIterator<T>
+    public class TutorialIterator<T>
     {
         public event Action<T> OnStepFinished;
 
