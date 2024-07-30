@@ -9,7 +9,7 @@ namespace Elementary
 
         protected virtual void Awake()
         {
-            this.SetEnable(this.toggle.Value);
+            this.SetEnable(this.toggle.Current);
         }
 
         protected virtual void OnEnable()
@@ -31,7 +31,7 @@ namespace Elementary
             {
                 this.toggle.OnValueChanged -= this.SetEnable;
                 this.toggle.OnValueChanged += this.SetEnable;
-                this.SetEnable(this.toggle.Value);
+                this.SetEnable(this.toggle.Current);
             }
         }
 #endif

@@ -1,5 +1,4 @@
 using System.Collections;
-using Elementary;
 using UnityEngine;
 
 namespace AI.BTree
@@ -8,11 +7,11 @@ namespace AI.BTree
     public sealed class UnityBehaviourNode_WaitForSeconds : UnityBehaviourNode_Coroutine
     {
         [SerializeField]
-        private FloatAdapter waitSeconds;
+        public float waitSeconds;
 
         protected override IEnumerator RunRoutine()
         {
-            yield return new WaitForSeconds(this.waitSeconds.Value);
+            yield return new WaitForSeconds(this.waitSeconds);
             this.Return(true);
         }
     }

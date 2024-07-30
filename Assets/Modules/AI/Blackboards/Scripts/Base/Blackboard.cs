@@ -13,6 +13,12 @@ namespace AI.Blackboards
 
         public event Action<string, object> OnVariableRemoved;
 
+        public object this[string key]
+        {
+            get => this.variables[key];
+            set => this.ChangeVariable(key, value);
+        }
+
         [ShowInInspector, ReadOnly]
         private readonly Dictionary<string, object> variables = new ();
 

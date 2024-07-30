@@ -40,7 +40,7 @@ namespace AI.BTree
             this.OnAbort();
             this.isRunning = false;
             this.callback = null;
-            this.OnEnd();
+            this.OnDispose();
         }
 
         protected abstract void Run();
@@ -54,7 +54,7 @@ namespace AI.BTree
 
             this.isRunning = false;
             this.OnReturn(success);
-            this.OnEnd();
+            this.OnDispose();
             this.InvokeCallback(success);
         }
 
@@ -68,7 +68,7 @@ namespace AI.BTree
         {
         }
 
-        protected virtual void OnEnd()
+        protected virtual void OnDispose()
         {
         }
 

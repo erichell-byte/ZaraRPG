@@ -1,5 +1,4 @@
 using System.Collections;
-using Asyncoroutine;
 using UnityEngine;
 
 namespace AI.BTree
@@ -22,7 +21,7 @@ namespace AI.BTree
 
         private IEnumerator RunInNextFrame()
         {
-            yield return new WaitForNextFrame();
+            yield return new WaitForEndOfFrame();
             this.child.Run(callback: this);
         }
 

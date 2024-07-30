@@ -35,7 +35,7 @@ namespace Elementary
 
         private MonoState currentState;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             if (this.enterOnEnable)
             {
@@ -43,7 +43,7 @@ namespace Elementary
             }
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (this.exitOnDisable)
             {
@@ -66,7 +66,7 @@ namespace Elementary
             this.mode = state;
             this.OnStateSwitched?.Invoke(state);
         }
-        
+
         public override void Enter()
         {
             if (ReferenceEquals(this.currentState, null) &&

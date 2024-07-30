@@ -1,53 +1,55 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Elementary
 {
-    [Serializable]
-    public sealed class ConditionComposite : ICondition
+    public class ConditionComposite : ICondition
     {
-        [SerializeField]
-        private Mode mode;
-        
-        [SerializeField]
-        private List<ICondition> conditions;
-        
+        protected List<ICondition> conditions;
+
         public ConditionComposite()
         {
-            this.conditions = new List<ICondition>();
-            this.mode = Mode.AND;
+            this.conditions = new List<ICondition>(1);
         }
 
-        public ConditionComposite(Mode mode, params ICondition[] conditions)
+        public ConditionComposite(params ICondition[] conditions)
         {
             this.conditions = new List<ICondition>(conditions);
-            this.mode = mode;
         }
 
-        public ConditionComposite SetMode(Mode mode)
+        public static ConditionComposite operator +(ConditionComposite composite, ICondition condition)
         {
-            this.mode = mode;
-            return this;
+            if (composite == null)
+            {
+                composite = new ConditionComposite();
+            }
+            
+            composite.conditions.Add(condition);
+            return composite;
         }
 
-        public ConditionComposite AddCondition(ICondition condition)
+        public static ConditionComposite operator +(ConditionComposite composite, IEnumerable<ICondition> condition)
         {
-            this.conditions.Add(condition);
-            return this;
+            if (composite == null)
+            {
+                composite = new ConditionComposite();
+            }
+            
+            composite.conditions.AddRange(condition);
+            return composite;
+        }
+        
+        public static ConditionComposite operator -(ConditionComposite composite, ICondition condition)
+        {
+            if (composite == null)
+            {
+                return null;
+            }
+
+            composite.conditions.Remove(condition);
+            return composite;
         }
 
         public bool IsTrue()
-        {
-            return this.mode switch
-            {
-                Mode.AND => this.All(),
-                Mode.OR => this.Any(),
-                _ => throw new Exception($"Mode is undefined {this.mode}")
-            };
-        }
-
-        private bool All()
         {
             for (int i = 0, count = this.conditions.Count; i < count; i++)
             {
@@ -60,25 +62,67 @@ namespace Elementary
 
             return true;
         }
+    }
+    
+    public class ConditionComposite<T> : ICondition<T>
+    {
+        protected List<ICondition<T>> conditions;
 
-        private bool Any()
+        public ConditionComposite()
+        {
+            this.conditions = new List<ICondition<T>>(1);
+        }
+
+        public ConditionComposite(params ICondition<T>[] conditions)
+        {
+            this.conditions = new List<ICondition<T>>(conditions);
+        }
+        
+        public static ConditionComposite<T> operator +(ConditionComposite<T> composite, ICondition<T> condition)
+        {
+            if (composite == null)
+            {
+                composite = new ConditionComposite<T>();
+            }
+            
+            composite.conditions.Add(condition);
+            return composite;
+        }
+
+        public static ConditionComposite<T> operator +(ConditionComposite<T> composite, IEnumerable<ICondition<T>> condition)
+        {
+            if (composite == null)
+            {
+                composite = new ConditionComposite<T>();
+            }
+            
+            composite.conditions.AddRange(condition);
+            return composite;
+        }
+        
+        public static ConditionComposite<T> operator -(ConditionComposite<T> composite, ICondition<T> condition)
+        {
+            if (composite == null)
+            {
+                return null;
+            }
+
+            composite.conditions.Remove(condition);
+            return composite;
+        }
+
+        public bool IsTrue(T args)
         {
             for (int i = 0, count = this.conditions.Count; i < count; i++)
             {
                 var condition = this.conditions[i];
-                if (condition.IsTrue())
+                if (!condition.IsTrue(args))
                 {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
-        }
-
-        public enum Mode
-        {
-            AND,
-            OR
+            return true;
         }
     }
 }

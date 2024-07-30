@@ -48,18 +48,10 @@ namespace Elementary
             get { return this.remainingTime; }
             set { this.remainingTime = Mathf.Clamp(value, 0, this.duration); }
         }
-
-        public MonoBehaviour CoroutineDispatcher
-        {
-            set { this.coroutineDispatcher = value; }
-        }
-
+        
         [Space]
         [SerializeField]
         private float duration;
-
-        [SerializeField]
-        private MonoBehaviour coroutineDispatcher;
 
         private float remainingTime;
 
@@ -69,9 +61,8 @@ namespace Elementary
         {
         }
 
-        public Countdown(MonoBehaviour coroutineDispatcher, float duration)
+        public Countdown(float duration)
         {
-            this.coroutineDispatcher = coroutineDispatcher;
             this.duration = duration;
             this.remainingTime = duration;
         }
@@ -85,14 +76,14 @@ namespace Elementary
 
             this.IsPlaying = true;
             this.OnStarted?.Invoke();
-            this.coroutine = this.coroutineDispatcher.StartCoroutine(this.TimerRoutine());
+            this.coroutine = MonoHelper.Instance.StartCoroutine(this.TimerRoutine());
         }
 
         public void Stop()
         {
             if (this.coroutine != null)
             {
-                this.coroutineDispatcher.StopCoroutine(this.coroutine);
+                MonoHelper.Instance.StopCoroutine(this.coroutine);
                 this.coroutine = null;
             }
 

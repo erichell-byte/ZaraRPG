@@ -9,8 +9,10 @@ namespace Elementary
         event Action OnPeriodEvent;
 
         event Action OnStoped;
+        
+        float Duration { get; set; }
 
-        public bool IsActive { get; }
+        bool IsActive { get; }
 
         void Play();
 

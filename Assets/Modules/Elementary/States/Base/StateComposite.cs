@@ -1,17 +1,14 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Elementary
 {
-    [Serializable]
     public class StateComposite : State
     {
-        [SerializeReference]
-        protected List<IState> states = new();
+        protected List<IState> states;
 
         public StateComposite()
         {
+            this.states = new List<IState>(1);
         }
 
         public StateComposite(params IState[] states)
@@ -36,15 +33,38 @@ namespace Elementary
                 state.Exit();
             }
         }
-
-        public void AddState(IState state)
+        
+        public static StateComposite operator +(StateComposite stateComposite, IState state)
         {
-            this.states.Add(state);
+            if (stateComposite == null)
+            {
+                stateComposite = new StateComposite();
+            }
+
+            stateComposite.states.Add(state);
+            return stateComposite;
         }
 
-        public void RemoveState(IState state)
+        public static StateComposite operator +(StateComposite stateComposite, IEnumerable<IState> states)
         {
-            this.states.Remove(state);
+            if (stateComposite == null)
+            {
+                stateComposite = new StateComposite();
+            }
+
+            stateComposite.states.AddRange(states);
+            return stateComposite;
+        }
+
+        public static StateComposite operator -(StateComposite stateComposite, IState state)
+        {
+            if (stateComposite == null)
+            {
+                return null;
+            }
+            
+            stateComposite.states.Remove(state);
+            return stateComposite;
         }
     }
 }

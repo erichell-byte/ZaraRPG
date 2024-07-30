@@ -6,7 +6,7 @@ namespace Elementary
     [Serializable]
     public sealed class FloatValue : IValue<float>
     {
-        public float Value
+        public float Current
         {
             get { return this.value; }
         }

@@ -12,10 +12,10 @@ namespace Elementary
 
         public event Action<float> OnMaxValueChanged;
 
-        public float Value
+        public float Current
         {
             get { return this.currentValue; }
-            set { this.SetValue(Mathf.Clamp(value, 0, this.maxValue)); }
+            set { this.SetValue(value); }
         }
 
         public float MaxValue
@@ -29,9 +29,9 @@ namespace Elementary
             get { return this.currentValue >= this.maxValue; }
         }
 
-        private readonly List<IAction<float>> listeners = new();
+        private ActionComposite<float> onValueChanged;
 
-        private readonly List<IAction<float>> maxListeners = new();
+        private ActionComposite<float> onMaxValueChanged;
 
         [OnValueChanged("SetValue")]
         [SerializeField]
@@ -43,34 +43,44 @@ namespace Elementary
 
         public void AddListener(IAction<float> listener)
         {
-            this.listeners.Add(listener);
+            this.onValueChanged += listener;
         }
 
         public void RemoveListener(IAction<float> listener)
         {
-            this.listeners.Remove(listener);
+            this.onValueChanged -= listener;
         }
 
         public void AddMaxListener(IAction<float> listener)
         {
-            this.maxListeners.Add(listener);
+            this.onMaxValueChanged += listener;
         }
 
         public void RemoveMaxListener(IAction<float> listener)
         {
-            this.maxListeners.Remove(listener);
+            this.onMaxValueChanged -= listener;
+        }
+        
+        public IAction<float> AddListener(Action<float> listener)
+        {
+            var actionDelegate = new ActionDelegate<float>(listener);
+            this.onValueChanged += actionDelegate;
+            return actionDelegate;
+        }
+
+        public IAction<float> AddMaxListener(Action<float> listener)
+        {
+            var actionDelegate = new ActionDelegate<float>(listener);
+            this.onMaxValueChanged += actionDelegate;
+            return actionDelegate;
         }
 
         private void SetValue(float value)
         {
-            for (int i = 0, count = this.listeners.Count; i < count; i++)
-            {
-                var listener = this.listeners[i];
-                listener.Do(value);
-            }
-            
+            value = Mathf.Clamp(value, 0, this.maxValue);
             this.currentValue = value;
-            this.OnValueChanged?.Invoke(this.currentValue);
+            this.onValueChanged?.Do(value);
+            this.OnValueChanged?.Invoke(value);
         }
         
         private void SetMaxValue(float value)
@@ -81,13 +91,8 @@ namespace Elementary
                 this.SetValue(value);
             }
 
-            for (int i = 0, count = this.maxListeners.Count; i < count; i++)
-            {
-                var listener = this.maxListeners[i];
-                listener.Do(value);
-            }
-            
             this.maxValue = value;
+            this.onMaxValueChanged?.Do(value);
             this.OnMaxValueChanged?.Invoke(value);
         }
     }

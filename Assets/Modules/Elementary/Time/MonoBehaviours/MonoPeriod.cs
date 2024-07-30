@@ -23,6 +23,12 @@ namespace Elementary
             get { return this.coroutine != null; }
         }
 
+        public float Duration
+        {
+            get { return this.period; }
+            set { this.period = value; }
+        }
+
         private Coroutine coroutine;
 
         [Tooltip("Period in seconds")]

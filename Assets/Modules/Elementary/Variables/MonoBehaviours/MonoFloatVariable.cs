@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Elementary
 {
-    [AddComponentMenu("Elementary/Variables/Float Variable")]
+    [AddComponentMenu("Elementary/Variables/Variable «Float»")]
     public sealed class MonoFloatVariable : MonoBehaviour, IVariable<float>
     {
         public event Action<float> OnValueChanged;
 
-        public float Value
+        public float Current
         {
             get { return this.value; }
             set { this.SetValue(value); }
@@ -21,6 +22,9 @@ namespace Elementary
         [OnValueChanged("SetValue")]
         [SerializeField]
         private float value;
+        
+        [SerializeField]
+        private UnityEvent<float> onValueChanged;
 
         public void SetValue(float value)
         {
@@ -31,6 +35,7 @@ namespace Elementary
             }
 
             this.value = value;
+            this.onValueChanged?.Invoke(value);
             this.OnValueChanged?.Invoke(value);
         }
 

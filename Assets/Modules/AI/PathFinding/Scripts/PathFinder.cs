@@ -24,23 +24,23 @@ namespace PathFinding
         public bool FindPath(T start, T end, List<T> result)
         {
             result.Clear();
-            
+
             if (ReferenceEquals(start, null) || ReferenceEquals(end, null))
             {
                 return false;
             }
-            
+
             if (ReferenceEquals(start, end))
             {
                 return true;
             }
-            
+
             this.start = start;
             this.end = end;
 
             this.openList.Clear();
             this.closedList.Clear();
-            
+
             return this.FindPath(result);
         }
 
@@ -51,11 +51,13 @@ namespace PathFinding
 
         protected abstract IEnumerable<T> GetNeighbours(T point);
 
-        protected abstract float GetHeuristicDistance(T point1, T point2);
+        protected abstract float GetDistance(T point1, T point2);
+
+        protected abstract float GetHeuristic(T point1, T point2);
 
         protected virtual float GetCost(Node node)
         {
-            return node.distanceToStart + node.distanceToEnd;
+            return node.cost + node.heuristic;
         }
 
         private bool FindPath(List<T> result)
@@ -64,8 +66,8 @@ namespace PathFinding
             var nextNode = new Node(
                 point: next,
                 baseNode: null,
-                distanceToStart: 0,
-                distanceToEnd: this.GetHeuristicDistance(this.start, this.end)
+                cost: 0,
+                heuristic: this.GetHeuristic(this.start, this.end)
             );
 
             while (true)
@@ -73,7 +75,7 @@ namespace PathFinding
                 this.closedList.Add(next);
                 this.ProcessNeighbours(nextNode);
 
-                if (this.EndFound(out var endNode))
+                if (this.FindFinish(out var endNode))
                 {
                     this.CreatePath(endNode, result);
                     return true;
@@ -111,32 +113,31 @@ namespace PathFinding
                 return;
             }
 
-            var distance = this.GetHeuristicDistance(neighbour, baseNode.point);
-            var distanceToStart = baseNode.distanceToStart + distance;
-            var alreadyExists = this.openList.TryGetValue(neighbour, out var node);
-            if (alreadyExists)
+            var distance = this.GetDistance(neighbour, baseNode.point);
+            var distanceToStart = baseNode.cost + distance;
+            var neighbourAlreadyExists = this.openList.TryGetValue(neighbour, out var node);
+            if (neighbourAlreadyExists)
             {
-                if (node.distanceToStart > distanceToStart)
+                if (node.cost > distanceToStart)
                 {
                     node.baseNode = baseNode;
-                    node.distanceToStart = distanceToStart;
+                    node.cost = distanceToStart;
                 }
             }
             else
             {
-                var distanceToEnd = this.GetHeuristicDistance(neighbour, this.end);
                 node = new Node(
                     point: neighbour,
                     baseNode: baseNode,
-                    distanceToStart: distanceToStart,
-                    distanceToEnd: distanceToEnd
+                    cost: distanceToStart,
+                    heuristic: this.GetHeuristic(neighbour, this.end)
                 );
 
                 this.openList.Add(neighbour, node);
             }
         }
 
-        private bool EndFound(out Node node)
+        private bool FindFinish(out Node node)
         {
             return this.openList.TryGetValue(this.end, out node);
         }
@@ -162,7 +163,7 @@ namespace PathFinding
             {
                 var node = nodeKV.Value;
                 var weight = this.GetCost(node);
-                
+
                 if (result == null || resultWeight > weight)
                 {
                     result = node;
@@ -177,18 +178,18 @@ namespace PathFinding
         {
             public readonly T point;
 
-            public readonly float distanceToEnd;
-
             public Node baseNode;
+            
+            public float cost;
 
-            public float distanceToStart;
+            public readonly float heuristic;
 
-            public Node(T point, Node baseNode, float distanceToStart, float distanceToEnd)
+            public Node(T point, Node baseNode, float cost, float heuristic)
             {
                 this.point = point;
                 this.baseNode = baseNode;
-                this.distanceToStart = distanceToStart;
-                this.distanceToEnd = distanceToEnd;
+                this.cost = cost;
+                this.heuristic = heuristic;
             }
         }
     }

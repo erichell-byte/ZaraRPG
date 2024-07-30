@@ -5,6 +5,7 @@ namespace AI.BTree
 {
     public abstract class UnityBehaviourNode : MonoBehaviour, IBehaviourNode
     {
+        [ShowInInspector, ReadOnly]
         public bool IsRunning { get; private set; }
 
         private IBehaviourCallback callback;
@@ -33,7 +34,7 @@ namespace AI.BTree
             this.OnAbort();
             this.IsRunning = false;
             this.callback = null;
-            this.OnEnd();
+            this.OnDispose();
         }
 
         protected abstract void Run();
@@ -47,7 +48,7 @@ namespace AI.BTree
 
             this.IsRunning = false;
             this.OnReturn(success);
-            this.OnEnd();
+            this.OnDispose();
             this.InvokeCallback(success);
         }
 
@@ -61,7 +62,7 @@ namespace AI.BTree
         {
         }
 
-        protected virtual void OnEnd()
+        protected virtual void OnDispose()
         {
         }
 

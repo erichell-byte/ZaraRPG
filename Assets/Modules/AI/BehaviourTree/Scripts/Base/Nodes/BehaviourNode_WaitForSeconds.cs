@@ -5,18 +5,10 @@ using UnityEngine;
 namespace AI.BTree
 {
     [Serializable]
-    public sealed class BehaviourNode_WaitForSeconds : BehaviourNode_Coroutine
+    public class BehaviourNode_WaitForSeconds : BehaviourNodeCoroutine
     {
         [SerializeField]
         public float waitSeconds;
-
-        public BehaviourNode_WaitForSeconds()
-        {
-        }
-
-        public BehaviourNode_WaitForSeconds(MonoBehaviour coroutineDispatcher) : base(coroutineDispatcher)
-        {
-        }
 
         protected override IEnumerator RunRoutine()
         {

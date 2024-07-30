@@ -2,9 +2,9 @@ namespace Elementary
 {
     public sealed class DecoratorValue<T> : IValue<T>
     {
-        public T Value
+        public T Current
         {
-            get { return this.value.Value; }
+            get { return this.value.Current; }
         }
 
         private readonly IValue<T> value;

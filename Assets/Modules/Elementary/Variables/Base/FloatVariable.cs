@@ -10,37 +10,39 @@ namespace Elementary
     {
         public event Action<float> OnValueChanged;
 
-        public float Value
+        public float Current
         {
             get { return this.value; }
             set { this.SetValue(value); }
         }
-
-        private readonly List<IAction<float>> listeners = new();
-
+        
         [OnValueChanged("SetValue")]
         [SerializeField]
         private float value;
+        
+        private ActionComposite<float> onValueChanged;
 
         public void AddListener(IAction<float> listener)
         {
-            this.listeners.Add(listener);
+            this.onValueChanged += listener;
         }
 
         public void RemoveListener(IAction<float> listener)
         {
-            this.listeners.Remove(listener);
+            this.onValueChanged -= listener;
+        }
+
+        public IAction<float> AddListener(Action<float> listener)
+        {
+            var actionDelegate = new ActionDelegate<float>(listener);
+            this.onValueChanged += actionDelegate;
+            return actionDelegate;
         }
 
         private void SetValue(float value)
         {
-            for (int i = 0, count = this.listeners.Count; i < count; i++)
-            {
-                var listener = this.listeners[i];
-                listener.Do(value);
-            }
-
             this.value = value;
+            this.onValueChanged?.Do(value);
             this.OnValueChanged?.Invoke(value);
         }
     }

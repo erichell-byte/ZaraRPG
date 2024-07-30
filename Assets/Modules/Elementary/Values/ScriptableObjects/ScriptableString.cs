@@ -8,7 +8,7 @@ namespace Elementary
     )]
     public sealed class ScriptableString : ScriptableObject, IValue<string>
     {
-        public string Value
+        public string Current
         {
             get { return this.value; }
         }

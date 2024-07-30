@@ -22,17 +22,15 @@ namespace Elementary
         {
             get { return this.coroutine != null; }
         }
-        
-        public MonoBehaviour CoroutineDispatcher
+
+        public float Duration
         {
-            set { this.coroutineDispatcher = value; }
+            get { return this.period; }
+            set { this.period = value; }
         }
 
         [SerializeField]
         private float period;
-
-        [SerializeField]
-        private MonoBehaviour coroutineDispatcher;
 
         private Coroutine coroutine;
 
@@ -40,9 +38,8 @@ namespace Elementary
         {
         }
 
-        public Period(MonoBehaviour coroutineDispatcher, float period)
+        public Period(float period)
         {
-            this.coroutineDispatcher = coroutineDispatcher;
             this.period = period;
         }
 
@@ -50,7 +47,7 @@ namespace Elementary
         {
             if (this.coroutine == null)
             {
-                this.coroutine = this.coroutineDispatcher.StartCoroutine(this.PeriodRoutine());
+                this.coroutine = MonoHelper.Instance.StartCoroutine(this.PeriodRoutine());
                 this.OnStarted?.Invoke();
             }
         }
@@ -59,7 +56,7 @@ namespace Elementary
         {
             if (this.coroutine != null)
             {
-                this.coroutineDispatcher.StopCoroutine(this.coroutine);
+                MonoHelper.Instance.StopCoroutine(this.coroutine);
                 this.coroutine = null;
                 this.OnStoped?.Invoke();
             }

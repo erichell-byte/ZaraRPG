@@ -36,11 +36,17 @@ namespace PathFinding.Examples
             return Enumerable.Empty<Point>();
         }
 
-        protected override float GetHeuristicDistance(Point point1, Point point2)
+        protected override float GetDistance(Point point1, Point point2)
         {
             var dx = point1.x - point2.x;
             var dy = point1.y - point2.y;
             return Mathf.Sqrt(dx * dx + dy * dy);
+        }
+
+        protected override float GetHeuristic(Point point1, Point point2)
+        {
+            //Manhattan distance:
+            return this.GetDistance(point1, point2);
         }
     }
 }

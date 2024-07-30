@@ -8,7 +8,7 @@ namespace Elementary
     [Serializable]
     public sealed class StringAdapter : IValue<string>
     {
-        public string Value
+        public string Current
         {
             get { return this.id; }
         }
@@ -35,7 +35,7 @@ namespace Elementary
         {
             if (this.mode == Mode.SCRIPTABLE_OBJECT)
             {
-                return this.scriptableString.Value;
+                return this.scriptableString.Current;
             }
 
             if (this.mode == Mode.CUSTOM)

@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Elementary
 {
-    [AddComponentMenu("Elementary/Variables/Bool Variable")]
+    [AddComponentMenu("Elementary/Variables/Variable «Bool»")]
     public sealed class MonoBoolVariable : MonoBehaviour, IVariable<bool>
     {
         public event Action<bool> OnValueChanged;
 
-        public bool Value
+        public bool Current
         {
             get { return this.value; }
             set { this.SetValue(value); }
@@ -22,6 +23,9 @@ namespace Elementary
         [SerializeField]
         private bool value;
 
+        [SerializeField]
+        private UnityEvent<bool> onValueChanged;
+
         public void SetValue(bool value)
         {
             for (int i = 0, count = this.listeners.Count; i < count; i++)
@@ -31,6 +35,7 @@ namespace Elementary
             }
 
             this.value = value;
+            this.onValueChanged?.Invoke(value);
             this.OnValueChanged?.Invoke(value);
         }
 

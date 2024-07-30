@@ -8,7 +8,7 @@ namespace Elementary
     )]
     public sealed class ScriptableInt : ScriptableObject, IValue<int>
     {
-        public int Value
+        public int Current
         {
             get { return this.value; }
         }

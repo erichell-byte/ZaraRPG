@@ -6,7 +6,7 @@ namespace Elementary
     [Serializable]
     public sealed class BoolValue : IValue<bool>
     {
-        public bool Value
+        public bool Current
         {
             get { return this.value; }
         }

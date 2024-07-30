@@ -30,29 +30,10 @@ namespace Elementary
             get { return this.currentTime; }
             set { this.currentTime = Mathf.Max(value, 0); }
         }
-        
-        public MonoBehaviour CoroutineDispatcher
-        {
-            set { this.coroutineDispatcher = value; }
-        }
-
-        [SerializeField]
-        private MonoBehaviour coroutineDispatcher;
 
         private float currentTime;
 
         private Coroutine coroutine;
-
-        public Stopwatch()
-        {
-            this.currentTime = 0;
-        }
-
-        public Stopwatch(MonoBehaviour coroutineDispatcher)
-        {
-            this.coroutineDispatcher = coroutineDispatcher;
-            this.currentTime = 0;
-        }
 
         public void Play()
         {
@@ -63,14 +44,14 @@ namespace Elementary
 
             this.IsPlaying = true;
             this.OnStarted?.Invoke();
-            this.coroutine = this.coroutineDispatcher.StartCoroutine(this.TimerRoutine());
+            this.coroutine = MonoHelper.Instance.StartCoroutine(this.TimerRoutine());
         }
 
         public void Stop()
         {
             if (this.coroutine != null)
             {
-                this.coroutineDispatcher.StopCoroutine(this.coroutine);
+                MonoHelper.Instance.StopCoroutine(this.coroutine);
             }
 
             if (this.IsPlaying)

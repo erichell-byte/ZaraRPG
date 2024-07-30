@@ -8,7 +8,7 @@ namespace Elementary
     [Serializable]
     public sealed class BoolAdapter : IValue<bool>
     {
-        public bool Value
+        public bool Current
         {
             get { return this.GetValue(); }
         }
@@ -35,8 +35,8 @@ namespace Elementary
             return this.mode switch
             {
                 Mode.BASE => this.baseValue,
-                Mode.MONO_BEHAVIOUR => this.monoValue.Value,
-                Mode.SCRIPTABLE_OBJECT => this.scriptableValue.Value,
+                Mode.MONO_BEHAVIOUR => this.monoValue.Current,
+                Mode.SCRIPTABLE_OBJECT => this.scriptableValue.Current,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

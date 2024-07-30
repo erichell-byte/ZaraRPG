@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Elementary
 {
-    [AddComponentMenu("Elementary/Variables/Int Variable «Limited»")]
+    [AddComponentMenu("Elementary/Variables/Variable «Int Limited»")]
     public sealed class MonoIntVariableLimited : MonoBehaviour, IVariableLimited<int>
     {
         public event Action<int> OnValueChanged
@@ -18,10 +18,10 @@ namespace Elementary
             remove { this.source.OnMaxValueChanged -= value; }
         }
 
-        public int Value
+        public int Current
         {
-            get { return this.source.Value; }
-            set { this.source.Value = value; }
+            get { return this.source.Current; }
+            set { this.source.Current = value; }
         }
 
         public int MaxValue
@@ -63,7 +63,7 @@ namespace Elementary
         private void OnValidate()
         {
             this.source.MaxValue = Math.Max(1, this.source.MaxValue);
-            this.source.Value = Mathf.Clamp(this.source.Value, 0, this.source.MaxValue);
+            this.source.Current = Mathf.Clamp(this.source.Current, 0, this.source.MaxValue);
         }
 #endif
     }

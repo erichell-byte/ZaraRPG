@@ -4,7 +4,7 @@ namespace Elementary
 {
     public sealed class FuncValue<T> : IValue<T>
     {
-        public T Value
+        public T Current
         {
             get { return this.function.Invoke(); }
         }

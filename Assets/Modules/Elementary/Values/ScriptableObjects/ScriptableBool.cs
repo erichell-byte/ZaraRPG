@@ -8,7 +8,7 @@ namespace Elementary
     )]
     public sealed class ScriptableBool : ScriptableObject, IValue<bool>
     {
-        public bool Value
+        public bool Current
         {
             get { return this.value; }
         }

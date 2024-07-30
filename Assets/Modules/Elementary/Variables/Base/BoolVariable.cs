@@ -9,38 +9,40 @@ namespace Elementary
     public sealed class BoolVariable : IVariable<bool>
     {
         public event Action<bool> OnValueChanged;
-
-        public bool Value
+        
+        public bool Current
         {
             get { return this.value; }
             set { this.SetValue(value); }
         }
-
-        private readonly List<IAction<bool>> listeners = new();
-
+        
         [OnValueChanged("SetValue")]
         [SerializeField]
         private bool value;
+        
+        private ActionComposite<bool> onValueChanged;
 
         public void AddListener(IAction<bool> listener)
         {
-            this.listeners.Add(listener);
+            this.onValueChanged += listener;
         }
 
         public void RemoveListener(IAction<bool> listener)
         {
-            this.listeners.Remove(listener);
+            this.onValueChanged -= listener;
+        }
+
+        public IAction<bool> AddListener(Action<bool> listener)
+        {
+            var actionDelegate = new ActionDelegate<bool>(listener);
+            this.onValueChanged += actionDelegate;
+            return actionDelegate;
         }
 
         private void SetValue(bool value)
         {
-            for (int i = 0, count = this.listeners.Count; i < count; i++)
-            {
-                var listener = this.listeners[i];
-                listener.Do(value);
-            }
-
             this.value = value;
+            this.onValueChanged?.Do(value);
             this.OnValueChanged?.Invoke(value);
         }
     }

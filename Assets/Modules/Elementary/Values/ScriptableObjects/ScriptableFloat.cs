@@ -8,7 +8,7 @@ namespace Elementary
     )]
     public sealed class ScriptableFloat : ScriptableObject, IValue<float>
     {
-        public float Value
+        public float Current
         {
             get { return this.value; }
         }

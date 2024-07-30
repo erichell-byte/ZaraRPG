@@ -49,17 +49,9 @@ namespace Elementary
             set { this.currentTime = Mathf.Clamp(value, 0, this.duration); }
         }
 
-        public MonoBehaviour CoroutineDispatcher
-        {
-            set { this.coroutineDispatcher = value; }
-        }
-
         [Space]
         [SerializeField]
         private float duration;
-
-        [SerializeField]
-        private MonoBehaviour coroutineDispatcher;
 
         private float currentTime;
 
@@ -67,19 +59,10 @@ namespace Elementary
 
         public Timer()
         {
-            this.currentTime = 0;
         }
 
-        public Timer(MonoBehaviour coroutineDispatcher, float duration)
+        public Timer(float duration)
         {
-            this.coroutineDispatcher = coroutineDispatcher;
-            this.duration = duration;
-            this.currentTime = 0;
-        }
-
-        public void Construct(MonoBehaviour coroutineDispatcher, float duration)
-        {
-            this.coroutineDispatcher = coroutineDispatcher;
             this.duration = duration;
             this.currentTime = 0;
         }
@@ -93,14 +76,14 @@ namespace Elementary
 
             this.IsPlaying = true;
             this.OnStarted?.Invoke();
-            this.coroutine = this.coroutineDispatcher.StartCoroutine(this.TimerRoutine());
+            this.coroutine = MonoHelper.Instance.StartCoroutine(this.TimerRoutine());
         }
 
         public void Stop()
         {
             if (this.coroutine != null)
             {
-                this.coroutineDispatcher.StopCoroutine(this.coroutine);
+                MonoHelper.Instance.StopCoroutine(this.coroutine);
             }
 
             if (this.IsPlaying)

@@ -5,12 +5,14 @@ namespace AI.Blackboards
 {
     public interface IBlackboard
     {
-        event Action<string, object> OnVariableAdded; 
+        event Action<string, object> OnVariableAdded;
 
         event Action<string, object> OnVariableChanged;
 
-        event Action<string, object> OnVariableRemoved; 
-        
+        event Action<string, object> OnVariableRemoved;
+
+        object this[string key] { get; set; }
+
         T GetVariable<T>(string key);
 
         IEnumerable<KeyValuePair<string, object>> GetVariables();

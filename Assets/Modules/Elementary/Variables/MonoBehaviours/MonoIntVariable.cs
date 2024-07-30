@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Elementary
 {
-    [AddComponentMenu("Elementary/Variables/Int Variable")]
+    [AddComponentMenu("Elementary/Variables/Variable «Int»")]
     public sealed class MonoIntVariable : MonoBehaviour, IVariable<int>
     {
         public event Action<int> OnValueChanged;
 
-        public int Value
+        public int Current
         {
             get { return this.value; }
             set { this.SetValue(value); }
@@ -22,6 +23,9 @@ namespace Elementary
         [SerializeField]
         private int value;
 
+        [SerializeField]
+        private UnityEvent<int> onValueChanged;
+
         public void SetValue(int value)
         {
             for (int i = 0, count = this.listeners.Count; i < count; i++)
@@ -31,6 +35,7 @@ namespace Elementary
             }
 
             this.value = value;
+            this.onValueChanged?.Invoke(value);
             this.OnValueChanged?.Invoke(value);
         }
         

@@ -23,9 +23,15 @@ namespace PathFinding.Examples
             return Enumerable.Empty<Transform>();
         }
 
-        protected override float GetHeuristicDistance(Transform point1, Transform point2)
+        protected override float GetDistance(Transform point1, Transform point2)
         {
             return Vector3.Distance(point2.position, point1.position);
+        }
+
+        protected override float GetHeuristic(Transform point1, Transform point2)
+        {
+            //Manhattan distance:
+            return this.GetDistance(point1, point2);
         }
     }
 }

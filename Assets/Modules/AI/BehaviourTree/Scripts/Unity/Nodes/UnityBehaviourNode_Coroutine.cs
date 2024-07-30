@@ -14,7 +14,7 @@ namespace AI.BTree
 
         protected abstract IEnumerator RunRoutine();
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             if (this.coroutine != null)
             {
