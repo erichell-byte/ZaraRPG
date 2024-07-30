@@ -10,7 +10,7 @@ namespace GameSystem.UnityEditor
         [MenuItem("GameObject/GameSystem/Game Context", false, 17)]
         public static void CreateGameSystem(MenuCommand menuCommand)
         {
-            var root = new GameObject("GameContext").AddComponent<MonoGameContext>();
+            var root = new GameObject("GameContext").AddComponent<GameContext>();
             Selection.activeGameObject = root.gameObject;
 
             var activeScene = EditorSceneManager.GetActiveScene();
@@ -20,7 +20,7 @@ namespace GameSystem.UnityEditor
         [MenuItem("GameObject/GameSystem/Game Element Group", false, 17)]
         public static void CreateGameElementGroup(MenuCommand menuCommand)
         {
-            var root = new GameObject("GameElementGroup").AddComponent<MonoGameElementGroup>();
+            var root = new GameObject("GameElementGroup").AddComponent<GameElementGroup>();
             Selection.activeGameObject = root.gameObject;
 
             var activeScene = EditorSceneManager.GetActiveScene();
@@ -30,7 +30,7 @@ namespace GameSystem.UnityEditor
         [MenuItem("GameObject/GameSystem/Game Service Group", false, 17)]
         public static void CreateGameServiceGroup(MenuCommand menuCommand)
         {
-            var root = new GameObject("GameServiceGroup").AddComponent<MonoGameServiceGroup>();
+            var root = new GameObject("GameServiceGroup").AddComponent<GameServiceGroup>();
             Selection.activeGameObject = root.gameObject;
 
             var activeScene = EditorSceneManager.GetActiveScene();

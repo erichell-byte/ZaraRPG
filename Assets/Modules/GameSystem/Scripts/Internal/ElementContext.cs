@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,37 +5,39 @@ namespace GameSystem
 {
     internal sealed class ElementContext
     {
-        internal event Action<IGameElement> OnRegistered;
-
-        internal event Action<IGameElement> OnUnregistered; 
-
-        private readonly IGameContext gameContext;
+        private readonly GameContext context;
 
         private readonly HashSet<IGameElement> gameElements;
 
         private readonly List<IGameElement> cache;
-        
-        internal ElementContext(IGameContext gameContext)
+
+        private readonly List<IGameUpdateElement> updateListeners = new();
+
+        private readonly List<IGameFixedUpdateElement> fixedUpdateListeners = new();
+
+        private readonly List<IGameLateUpdateElement> lateUpdateListeners = new();
+
+        internal ElementContext(GameContext context)
         {
-            this.gameContext = gameContext;
+            this.context = context;
             this.gameElements = new HashSet<IGameElement>();
             this.cache = new List<IGameElement>();
         }
-        
+
         internal void AddElement(IGameElement element)
         {
             if (element == null)
             {
                 return;
             }
-            
+
             var addedElements = new HashSet<IGameElement>();
             this.AddRecursively(element, ref addedElements);
-            
+
             foreach (var addedElement in addedElements)
             {
                 this.TryActivateElement(addedElement);
-                this.OnRegistered?.Invoke(addedElement);
+                this.TryAddListener(addedElement);
             }
         }
 
@@ -47,7 +48,7 @@ namespace GameSystem
                 this.RemoveRecursively(element);
             }
         }
-        
+
         internal object[] GetAllElements()
         {
             return this.gameElements.ToArray<object>();
@@ -57,13 +58,13 @@ namespace GameSystem
         {
             this.cache.Clear();
             this.cache.AddRange(this.gameElements);
-            
+
             for (int i = 0, count = this.cache.Count; i < count; i++)
             {
                 var element = this.cache[i];
                 if (element is IGameConstructElement constructElement)
                 {
-                    constructElement.ConstructGame(this.gameContext);
+                    constructElement.ConstructGame(this.context);
                 }
             }
         }
@@ -87,7 +88,7 @@ namespace GameSystem
         {
             this.cache.Clear();
             this.cache.AddRange(this.gameElements);
-            
+
             for (int i = 0, count = this.cache.Count; i < count; i++)
             {
                 var element = this.cache[i];
@@ -102,7 +103,7 @@ namespace GameSystem
         {
             this.cache.Clear();
             this.cache.AddRange(this.gameElements);
-            
+
             for (int i = 0, count = this.cache.Count; i < count; i++)
             {
                 var element = this.cache[i];
@@ -113,11 +114,38 @@ namespace GameSystem
             }
         }
 
+        internal void FixedUpdate(float deltaTime)
+        {
+            for (int i = 0, count = this.fixedUpdateListeners.Count; i < count; i++)
+            {
+                var listener = this.fixedUpdateListeners[i];
+                listener.OnFixedUpdate(deltaTime);
+            }
+        }
+
+        internal void Update(float deltaTime)
+        {
+            for (int i = 0, count = this.updateListeners.Count; i < count; i++)
+            {
+                var listener = this.updateListeners[i];
+                listener.OnUpdate(deltaTime);
+            }
+        }
+
+        internal void LateUpdate(float deltaTime)
+        {
+            for (int i = 0, count = this.lateUpdateListeners.Count; i < count; i++)
+            {
+                var listener = this.lateUpdateListeners[i];
+                listener.OnLateUpdate(deltaTime);
+            }
+        }
+
         internal void PauseGame()
         {
             this.cache.Clear();
             this.cache.AddRange(this.gameElements);
-            
+
             for (int i = 0, count = this.cache.Count; i < count; i++)
             {
                 var element = this.cache[i];
@@ -132,7 +160,7 @@ namespace GameSystem
         {
             this.cache.Clear();
             this.cache.AddRange(this.gameElements);
-            
+
             for (int i = 0, count = this.cache.Count; i < count; i++)
             {
                 var element = this.cache[i];
@@ -147,7 +175,7 @@ namespace GameSystem
         {
             this.cache.Clear();
             this.cache.AddRange(this.gameElements);
-            
+
             for (int i = 0, count = this.cache.Count; i < count; i++)
             {
                 var element = this.cache[i];
@@ -160,11 +188,11 @@ namespace GameSystem
 
         private void AddRecursively(IGameElement element, ref HashSet<IGameElement> addedElements)
         {
-            if (this.IsListeneableElement(element) && this.gameElements.Add(element))
+            if (this.gameElements.Add(element))
             {
                 addedElements.Add(element);
             }
-            
+
             if (element is IGameElementGroup elementGroup)
             {
                 foreach (var child in elementGroup.GetElements())
@@ -174,27 +202,10 @@ namespace GameSystem
             }
         }
 
-        private bool IsListeneableElement(IGameElement element)
-        {
-            return element is
-                IGameAttachElement or
-                IGameDetachElement or
-                IGameConstructElement or
-                IGameInitElement or
-                IGameReadyElement or
-                IGameStartElement or
-                IGamePauseElement or
-                IGameResumeElement or
-                IGameFinishElement;
-        }
-
         private void RemoveRecursively(IGameElement element)
         {
-            if (this.IsListeneableElement(element))
-            {
-                this.RemoveElementInternal(element);
-            }
-            
+            this.RemoveElementInternal(element);
+
             if (element is IGameElementGroup elementGroup)
             {
                 foreach (var child in elementGroup.GetElements())
@@ -209,36 +220,36 @@ namespace GameSystem
             this.gameElements.Remove(element);
             if (element is IGameDetachElement detachElement)
             {
-                detachElement.DetachGame(this.gameContext);
+                detachElement.DetachGame(this.context);
             }
-            
-            this.OnUnregistered?.Invoke(element);
+
+            this.TryRemoveListener(element);
         }
 
         private void TryActivateElement(IGameElement element)
         {
             if (element is IGameAttachElement attachElement)
             {
-                attachElement.AttachGame(this.gameContext);
+                attachElement.AttachGame(this.context);
             }
-            
-            var gameState = this.gameContext.State;
-            if (gameState >= GameState.FINISH)
+
+            var gameState = this.context.CurrentState;
+            if (gameState >= GameContext.State.FINISH)
             {
                 return;
             }
 
-            if (gameState < GameState.CONSTRUCT)
+            if (gameState < GameContext.State.CONSTRUCT)
             {
                 return;
             }
-            
+
             if (element is IGameConstructElement constructElement)
             {
-                constructElement.ConstructGame(this.gameContext);
+                constructElement.ConstructGame(this.context);
             }
 
-            if (gameState < GameState.INIT)
+            if (gameState < GameContext.State.INIT)
             {
                 return;
             }
@@ -248,7 +259,7 @@ namespace GameSystem
                 initElement.InitGame();
             }
 
-            if (gameState < GameState.READY)
+            if (gameState < GameContext.State.READY)
             {
                 return;
             }
@@ -257,8 +268,8 @@ namespace GameSystem
             {
                 readyElement.ReadyGame();
             }
-            
-            if (gameState < GameState.PLAY)
+
+            if (gameState < GameContext.State.PLAY)
             {
                 return;
             }
@@ -267,10 +278,46 @@ namespace GameSystem
             {
                 startElement.StartGame();
             }
-            
-            if (gameState == GameState.PAUSE && element is IGamePauseElement pauseElement)
+
+            if (gameState == GameContext.State.PAUSE && element is IGamePauseElement pauseElement)
             {
                 pauseElement.PauseGame();
+            }
+        }
+
+        private void TryAddListener(IGameElement listener)
+        {
+            if (listener is IGameUpdateElement updateElement)
+            {
+                this.updateListeners.Add(updateElement);
+            }
+
+            if (listener is IGameFixedUpdateElement fixedUpdateElement)
+            {
+                this.fixedUpdateListeners.Add(fixedUpdateElement);
+            }
+
+            if (listener is IGameLateUpdateElement lateUpdateElement)
+            {
+                this.lateUpdateListeners.Add(lateUpdateElement);
+            }
+        }
+
+        private void TryRemoveListener(IGameElement listener)
+        {
+            if (listener is IGameUpdateElement updateElement)
+            {
+                this.updateListeners.Remove(updateElement);
+            }
+
+            if (listener is IGameFixedUpdateElement fixedUpdateElement)
+            {
+                this.fixedUpdateListeners.Remove(fixedUpdateElement);
+            }
+
+            if (listener is IGameLateUpdateElement lateUpdateElement)
+            {
+                this.lateUpdateListeners.Remove(lateUpdateElement);
             }
         }
     }

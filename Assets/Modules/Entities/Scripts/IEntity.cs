@@ -4,14 +4,8 @@ namespace Entities
     {
         T Get<T>();
 
-        T[] GetAll<T>();
-
         bool TryGet<T>(out T element);
 
         object[] GetAll();
-        
-        void Add(object element);
-
-        void Remove(object element);
     }
 }

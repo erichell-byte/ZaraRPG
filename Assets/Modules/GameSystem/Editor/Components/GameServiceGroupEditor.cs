@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace GameSystem.UnityEditor
 {
-    [CustomEditor(typeof(MonoGameServiceGroup))]
+    [CustomEditor(typeof(GameServiceGroup))]
     public sealed class GameServiceGroupEditor : Editor
     {
-        private MonoGameServiceGroup serviceGroup;
+        private GameServiceGroup serviceGroup;
 
         private SerializedProperty gameServices;
 
@@ -15,7 +15,7 @@ namespace GameSystem.UnityEditor
 
         private void OnEnable()
         {
-            this.serviceGroup = (MonoGameServiceGroup) this.target;
+            this.serviceGroup = (GameServiceGroup) this.target;
             this.gameServices = this.serializedObject.FindProperty(nameof(this.gameServices));
             this.dragAndDropDrawler = DragAndDropDrawler.CreateForServices(this.OnDragAndDrop);
         }

@@ -12,7 +12,7 @@ namespace GameSystem
         /// <summary>
         ///     <para>Called when this element has registered to a game system.</para>
         /// </summary>
-        void AttachGame(IGameContext context);
+        void AttachGame(GameContext context);
     }
 
     public interface IGameDetachElement : IGameElement
@@ -20,7 +20,7 @@ namespace GameSystem
         /// <summary>
         ///     <para>Called when this element has unregistered from a game system.</para>
         /// </summary>
-        void DetachGame(IGameContext context);
+        void DetachGame(GameContext context);
     }
 
     public interface IGameConstructElement : IGameElement
@@ -31,7 +31,7 @@ namespace GameSystem
         ///     <seealso cref="GameInjector"/>
         ///     <seealso cref="GameInjectAttribute"/>
         /// </summary>
-        void ConstructGame(IGameContext context);
+        void ConstructGame(GameContext context);
     }
 
     public interface IGameInitElement : IGameElement
@@ -82,11 +82,18 @@ namespace GameSystem
         void FinishGame();
     }
 
-    public interface IGameElementGroup : IGameElement
+    public interface IGameUpdateElement : IGameElement
     {
-        /// <summary>
-        ///     <para>Returns a collection of elements.</para>
-        /// </summary>
-        IEnumerable<IGameElement> GetElements();
+        void OnUpdate(float deltaTime);
+    }
+
+    public interface IGameFixedUpdateElement : IGameElement
+    {
+        void OnFixedUpdate(float deltaTime);
+    }
+
+    public interface IGameLateUpdateElement : IGameElement
+    {
+        void OnLateUpdate(float deltaTime);
     }
 }

@@ -5,10 +5,10 @@ using Object = UnityEngine.Object;
 
 namespace GameSystem.UnityEditor
 {
-    [CustomEditor(typeof(MonoGameElementGroup))]
+    [CustomEditor(typeof(GameElementGroup))]
     public sealed class GameElementGroupEditor : Editor
     {
-        private MonoGameElementGroup elementGroup;
+        private GameElementGroup elementGroup;
 
         private SerializedProperty gameElements;
 
@@ -16,7 +16,7 @@ namespace GameSystem.UnityEditor
 
         private void OnEnable()
         {
-            this.elementGroup = (MonoGameElementGroup) this.target;
+            this.elementGroup = (GameElementGroup) this.target;
             this.gameElements = this.serializedObject.FindProperty(nameof(this.gameElements));
             this.dragAndDropDrawler = DragAndDropDrawler.CreateForElements(this.OnDragAndDrop);
         }

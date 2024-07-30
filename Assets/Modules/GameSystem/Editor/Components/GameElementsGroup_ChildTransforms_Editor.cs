@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystem.UnityEditor
 {
-    [CustomEditor(typeof(MonoGameElementGroup_ChildTransforms))]
+    [CustomEditor(typeof(GameElementGroup_ChildTransforms))]
     public sealed class GameElementsGroup_ChildTransforms_Editor : Editor
     {
         private SerializedProperty includeInactive;

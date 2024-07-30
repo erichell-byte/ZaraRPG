@@ -5,14 +5,12 @@ using Object = UnityEngine.Object;
 
 namespace GameSystem.UnityEditor
 {
-    [CustomEditor(typeof(MonoGameContext))]
+    [CustomEditor(typeof(GameContext))]
     public sealed class GameContextEditor : Editor
     {
-        private MonoGameContext gameContext;
+        private GameContext gameContext;
 
         private SerializedProperty autoRun;
-        
-        private SerializedProperty useInject;
 
         private SerializedProperty gameServices;
 
@@ -28,10 +26,9 @@ namespace GameSystem.UnityEditor
 
         private void OnEnable()
         {
-            this.gameContext = (MonoGameContext) this.target;
+            this.gameContext = (GameContext) this.target;
 
             this.autoRun = this.serializedObject.FindProperty(nameof(this.autoRun));
-            this.useInject = this.serializedObject.FindProperty(nameof(this.useInject));
             
             this.gameServices = this.serializedObject.FindProperty(nameof(this.gameServices));
             this.gameElements = this.serializedObject.FindProperty(nameof(this.gameElements));
@@ -55,13 +52,10 @@ namespace GameSystem.UnityEditor
 
             EditorGUILayout.Space(2);
             EditorGUILayout.PropertyField(this.autoRun);
-            
-            EditorGUILayout.Space(2);
-            EditorGUILayout.PropertyField(this.useInject);
-            
+
             EditorGUILayout.Space(4);
             GUI.enabled = false;
-            EditorGUILayout.LabelField($"Status:  {this.gameContext.State}");
+            EditorGUILayout.LabelField($"Status:  {this.gameContext.CurrentState}");
             GUI.enabled = true;
 
             EditorGUILayout.Space(2);
@@ -159,14 +153,14 @@ namespace GameSystem.UnityEditor
         
         private void OnDragAndDropTask(Object draggedObject)
         {
-            if (draggedObject is ConstructTask task)
+            if (draggedObject is GameContext.ConstructTask task)
             {
                 this.AddInitTask(task);
                 EditorUtility.SetDirty(this.gameContext);
             }
         }
 
-        private void AddInitTask(ConstructTask task)
+        private void AddInitTask(GameContext.ConstructTask task)
         {
             this.gameContext.Editor_AddConstructTask(task);
         }

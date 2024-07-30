@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace GameSystem.UnityEditor
 {
-    [CustomEditor(typeof(MonoGameElementGroup_ComponentsInChildren))]
+    [CustomEditor(typeof(GameElementGroup_ComponentsInChildren))]
     public sealed class GameElementsGroup_ComponentsInChildren_Editor : Editor
     {
         private SerializedProperty includeInactive;

@@ -12,9 +12,9 @@ namespace GameSystem.UnityEditor
     {
         private static readonly HashSet<string> libraryClassNames = new HashSet<string>
         {
-            nameof(MonoGameContext),
-            nameof(MonoGameElementGroup),
-            nameof(MonoGameServiceGroup)
+            nameof(GameContext),
+            nameof(GameElementGroup),
+            nameof(GameServiceGroup)
         };
 
         [DidReloadScripts]
