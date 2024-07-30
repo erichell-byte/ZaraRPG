@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace GameObjectDebug.UnityEditor
+namespace Tools.UnityEditor
 {
     internal static class ReferenceChecker
     {
@@ -42,14 +42,9 @@ namespace GameObjectDebug.UnityEditor
             {
                 return;
             }
-            
-            var type = monoBehaviour.GetType();
-            if (type.Assembly.GetName().Name != "Assembly-CSharp")
-            {
-                return;
-            }
 
-            while (type != typeof(MonoBehaviour))
+            var type = monoBehaviour.GetType();
+            while (ReferenceCheckFilter.Instance.TypeExists(type))
             {
                 CheckReferences(type, monoBehaviour, ref wasError);
                 type = type.BaseType;
@@ -95,7 +90,8 @@ namespace GameObjectDebug.UnityEditor
             var objectName = monoBehaviour.name;
             var componentName = monoBehaviour.GetType().Name;
             var propertyName = fieldInfo.Name;
-            var message = $"<color=#F62B2F>Failed game object: {objectName}! Component: {componentName} Property: {propertyName}</color>";
+            var message =
+                $"<color=#F62B2F>Failed game object: {objectName}! Component: {componentName} Property: {propertyName}</color>";
             Debug.LogError(message, monoBehaviour.gameObject);
         }
 
