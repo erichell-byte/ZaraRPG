@@ -31,17 +31,25 @@ MonoBehaviour:
     assemblyNames:
     - Assets
     - Elementary
-    - MonoOptimization
-    - UIFrames
+    - GOAP
+    - BehaviourTree
+    - Windows
     - Products
     - GameSystem
     - Cinemachine
     - InventorySystem
+    - Iterators
     - Localization
     - PathFinding
+    - Declarative
+    - Agents
+    - GameNodes
+    - AITasks
     - CustomParticles
     - PopupSystem
+    - DialogueSystem
     - Entities
+    - AICommands
     - CustomAnimations
     - Purchasing.Common
     - Services
@@ -53,12 +61,15 @@ MonoBehaviour:
     - Polygons
     - GameResources
     - Purchasing
+    - Blackboards
     - Sirenix.OdinInspector.CompatibilityLayer
     - PPv2URPConverters
+    - GOAP (EditMode)
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - NavMeshComponentsEditor
     - Sirenix.OdinInspector.Modules.UnityMathematics
     - InventorySystem (EditMode)
+    - LessonTDD
     - SimpleFolderIcon
     - Pathfinding (EditMode)
     - LessonCrafting
