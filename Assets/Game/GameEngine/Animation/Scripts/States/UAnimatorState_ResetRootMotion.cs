@@ -7,7 +7,7 @@ namespace Game.GameEngine.Animation
     public sealed class UAnimatorState_ResetRootMotion : MonoState
     {
         [SerializeField]
-        private UAnimatorSystem system;
+        private UAnimatorMachine system;
 
         [Space]
         [SerializeField]

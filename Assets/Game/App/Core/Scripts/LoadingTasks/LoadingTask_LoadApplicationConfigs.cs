@@ -5,10 +5,10 @@ namespace Game.App
 {
     public sealed class LoadingTask_LoadApplicationConfigs : ILoadingTask
     {
-        private readonly IAppConfigsLoader[] loaders;
+        private readonly IConfigLoader[] loaders;
     
         [ServiceInject]
-        public LoadingTask_LoadApplicationConfigs(IAppConfigsLoader[] loaders)
+        public LoadingTask_LoadApplicationConfigs(IConfigLoader[] loaders)
         {
             this.loaders = loaders;
         }

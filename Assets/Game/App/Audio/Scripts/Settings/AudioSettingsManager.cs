@@ -1,5 +1,5 @@
 using System;
-using Game.GameAudio;
+using Game.SceneAudio;
 using UnityEngine;
 
 namespace Game.App
@@ -43,7 +43,7 @@ namespace Game.App
             SoundVolume = volume;
 
             UISoundManager.Volume = volume;
-            GameAudioManager.SetVolumeAll(volume);
+            SceneAudioManager.SetVolumeAll(volume);
 
             OnSoundVolumeChanged?.Invoke(volume);
         }

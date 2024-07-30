@@ -11,7 +11,7 @@ namespace Game.GameEngine.Mechanics
         public UResourceSourceLimited resourceStorage;
 
         [SerializeField]
-        public UHarvestResourceEngine harvestEngine;
+        public UHarvestResourceOperator harvestEngine;
         
         public override void Enter()
         {
@@ -27,7 +27,7 @@ namespace Game.GameEngine.Mechanics
         {
             if (this.resourceStorage.IsLimit)
             {
-                this.harvestEngine.StopHarvest();
+                this.harvestEngine.Stop();
             }
         }
     }

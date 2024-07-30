@@ -6,18 +6,22 @@ using UnityEngine;
 
 namespace Game.Tutorial.Gameplay
 {
-    public sealed class NavigationManager : MonoBehaviour, IGameConstructElement
+    public sealed class NavigationManager : MonoBehaviour,
+        IGameConstructElement,
+        IGameInitElement
     {
         [SerializeField]
         private NavigationArrow arrow;
 
         private IComponent_GetPosition heroComponent;
 
+        private IHeroService heroService;
+
         [PropertySpace]
         [ReadOnly]
         [ShowInInspector]
         private Vector3 targetPosition;
-        
+
         [ReadOnly]
         [ShowInInspector]
         private bool isActive;
@@ -32,8 +36,14 @@ namespace Game.Tutorial.Gameplay
             if (this.isActive)
             {
                 this.arrow.SetPosition(this.heroComponent.Position);
-                this.arrow.LookAt(this.targetPosition);   
+                this.arrow.LookAt(this.targetPosition);
             }
+        }
+        
+        [Button]
+        public void StartLookAt(Transform targetPoint)
+        {
+            this.StartLookAt(targetPoint.position);
         }
 
         public void StartLookAt(Vector3 targetPosition)
@@ -49,12 +59,14 @@ namespace Game.Tutorial.Gameplay
             this.isActive = false;
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
-            this.heroComponent = context
-                .GetService<HeroService>()
-                .GetHero()
-                .Get<IComponent_GetPosition>();
+            this.heroService = context.GetService<HeroService>();
+        }
+
+        void IGameInitElement.InitGame()
+        {
+            this.heroComponent = this.heroService.GetHero().Get<IComponent_GetPosition>();
         }
     }
 }

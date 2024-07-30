@@ -39,7 +39,7 @@ namespace Game.GameEngine.Development
                 return;
             }
 
-            var gameContext = FindObjectOfType<MonoGameContext>();
+            var gameContext = FindObjectOfType<GameContext>();
             gameContext.ConstructGame();
             gameContext.InitGame();
             gameContext.ReadyGame();

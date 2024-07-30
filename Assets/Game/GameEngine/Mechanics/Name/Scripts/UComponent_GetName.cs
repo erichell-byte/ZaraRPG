@@ -8,7 +8,7 @@ namespace Game.GameEngine.Mechanics
     {
         public string Name
         {
-            get { return _name.Value; }
+            get { return _name.Current; }
         }
 
         [SerializeField]

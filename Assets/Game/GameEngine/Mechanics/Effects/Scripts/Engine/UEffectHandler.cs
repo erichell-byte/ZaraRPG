@@ -1,11 +1,8 @@
-using UnityEngine;
+using Elementary;
 
 namespace Game.GameEngine.Mechanics
 {
-    public abstract class UEffectHandler : MonoBehaviour
+    public abstract class UEffectHandler : MonoEffectHandler<IEffect>
     {
-        public abstract void OnEffectAdded(IEffect effect);
-
-        public abstract void OnEffectRemoved(IEffect effect);
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using AI.Blackboards;
 using AI.BTree;
 using Entities;
@@ -7,54 +6,44 @@ using UnityEngine;
 
 namespace Game.GameEngine.AI
 {
-    [Serializable]
     public sealed class BTNode_Entity_FollowEntityByPolygon : BehaviourNode
     {
-        public string UnitKey
-        {
-            set => unitKey = value;
-        }
+        private readonly Agent_Entity_FollowEntityByPolygon followAgent = new();
 
-        public string TargetKey
-        {
-            set => targetKey = value;
-        }
-
-        public string SurfaceKey
-        {
-            set => surfaceKey = value;
-        }
-
-        [BlackboardKey]
-        [SerializeField]
         private string unitKey;
 
-        [BlackboardKey]
-        [SerializeField]
         private string targetKey;
 
-        [BlackboardKey]
-        [SerializeField]
         private string surfaceKey;
-        
+
         private IBlackboard blackboard;
-
-        private Agent_Entity_FollowEntityByPolygon followAgent;
-
-        public void Construct(
-            MonoBehaviour monoContext,
-            IBlackboard blackboard,
-            float stoppingDistance,
-            float minPointDistance
-        )
+        
+        public BTNode_Entity_FollowEntityByPolygon()
         {
-            this.blackboard = blackboard;
-            
-            this.followAgent = new Agent_Entity_FollowEntityByPolygon(monoContext);
-            this.followAgent.SetStoppingDistance(stoppingDistance);
-            this.followAgent.SetMinPointDistance(minPointDistance);
             this.followAgent.SetCalculatePathPeriod(new WaitForFixedUpdate());
             this.followAgent.SetCheckTargetReachedPeriod(null);
+        }
+
+        public void ConstructBlackboard(IBlackboard blackboard)
+        {
+            this.blackboard = blackboard;
+        }
+
+        public void ConstructBlackboardKeys(string unitKey, string targetKey, string surfaceKey)
+        {
+            this.unitKey = unitKey;
+            this.targetKey = targetKey;
+            this.surfaceKey = surfaceKey;
+        }
+
+        public void ConstructStoppingDistance(float distance)
+        {
+            this.followAgent.SetStoppingDistance(distance);
+        }
+
+        public void ConstructIntermediateDistance(float distance)
+        {
+            this.followAgent.SetIntermediateDistance(distance);
         }
 
         protected override void Run()
@@ -92,7 +81,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             this.followAgent.Stop();
             this.followAgent.OnTargetReached -= this.OnTargetReached;

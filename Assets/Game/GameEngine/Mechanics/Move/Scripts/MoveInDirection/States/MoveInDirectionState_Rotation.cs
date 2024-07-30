@@ -5,29 +5,33 @@ using UnityEngine;
 namespace Game.GameEngine.Mechanics
 {
     [Serializable]
-    public sealed class MoveInDirectionState_Rotation : StateUpdated
+    public sealed class MoveInDirectionState_Rotation : StateUpdate
     {
         [Space]
         [SerializeField]
-        private Mode mode = Mode.INSTANTLY;
+        public Mode mode = Mode.INSTANTLY;
 
         [ShowIf("mode", Mode.SMOOTH)]
         [SerializeField]
-        private float rotationSpeed = 45;
+        public float rotationSpeed = 45;
 
-        private IMoveInDirectionEngine moveEngine;
+        private IMoveInDirectionMotor moveMotor;
 
-        private ITransformEngine transformEngine;
+        private ITransformEngine transform;
 
-        public void Construct(IMoveInDirectionEngine moveEngine, ITransformEngine transformEngine)
+        public void ConstructMotor(IMoveInDirectionMotor moveMotor)
         {
-            this.moveEngine = moveEngine;
-            this.transformEngine = transformEngine;
+            this.moveMotor = moveMotor;
+        }
+
+        public void ConstructTransform(ITransformEngine transform)
+        {
+            this.transform = transform;
         }
 
         protected override void Update(float deltaTime)
         {
-            if (this.moveEngine.IsMoving)
+            if (this.moveMotor.IsMoving)
             {
                 this.RotateInDirection(deltaTime);
             }
@@ -35,18 +39,18 @@ namespace Game.GameEngine.Mechanics
 
         private void RotateInDirection(float deltaTime)
         {
-            var direction = this.moveEngine.Direction;
+            var direction = this.moveMotor.Direction;
             if (this.mode == Mode.INSTANTLY)
             {
-                this.transformEngine.LookInDirection(direction);
+                this.transform.LookInDirection(direction);
             }
             else if (this.mode == Mode.SMOOTH)
             {
-                this.transformEngine.RotateTowardsInDirection(direction, this.rotationSpeed, deltaTime);
+                this.transform.RotateTowardsInDirection(direction, this.rotationSpeed, deltaTime);
             }
         }
 
-        private enum Mode
+        public enum Mode
         {
             INSTANTLY = 0,
             SMOOTH = 1

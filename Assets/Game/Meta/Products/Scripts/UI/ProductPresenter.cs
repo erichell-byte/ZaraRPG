@@ -63,7 +63,7 @@ namespace Game.Meta
 
             this.moneyStorage.OnMoneyChanged += this.OnMoneyChanged;
             this.resourceStorage.OnResourceChanged += this.OnResourcesChanged;
-            this.buyManager.OnCompleted += this.OnBuyCompleted;
+            this.buyManager.OnBuyCompleted += this.OnBuyCompleted;
             
             this.view.BuyButton.OnClicked += this.OnBuyButtonClicked;
             this.isStarted = true;
@@ -78,7 +78,7 @@ namespace Game.Meta
                 return;
             }
 
-            this.buyManager.OnCompleted -= this.OnBuyCompleted;
+            this.buyManager.OnBuyCompleted -= this.OnBuyCompleted;
             this.view.BuyButton.OnClicked -= this.OnBuyButtonClicked;
             this.moneyStorage.OnMoneyChanged -= this.OnMoneyChanged;
             this.resourceStorage.OnResourceChanged -= this.OnResourcesChanged;

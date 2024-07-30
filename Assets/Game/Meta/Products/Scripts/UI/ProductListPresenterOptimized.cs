@@ -4,12 +4,12 @@ using Game.GameEngine.Products;
 using Game.Gameplay.Player;
 using Game.UI;
 using GameSystem;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class ProductListPresenterOptimized : UnityFrame,
+    public sealed class ProductListPresenterOptimized : MonoWindow,
         IGameConstructElement,
         RecyclableViewList.IAdapter
     {
@@ -81,7 +81,7 @@ namespace Game.Meta
             this.presenterMap.Remove(view);
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.buyManager = context.GetService<ProductBuyer>();
             this.moneyStorage = context.GetService<MoneyStorage>();

@@ -8,9 +8,9 @@ namespace Game.GameEngine
         fileName = "Task «Setup Respawn Point»",
         menuName = "GameEngine/Construct/New Task «Setup Respawn Point»"
     )]
-    public sealed class ConstructTask_SetupRespawnPoint : ConstructTask
+    public sealed class ConstructTask_SetupRespawnPoint : GameContext.ConstructTask
     {
-        public override void Construct(IGameContext gameContext)
+        public override void Construct(GameContext gameContext)
         {
             var spawnPoint = GameObject.FindGameObjectWithTag("Respawn");
             if (spawnPoint == null)

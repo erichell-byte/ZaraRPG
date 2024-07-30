@@ -13,14 +13,14 @@ namespace Game.GameEngine.Entities
         private Transform parent;
         
         [SerializeField]
-        private UnityEntity prefab;
+        private MonoEntity prefab;
         
         [Space, ReadOnly, ShowInInspector]
-        private readonly Queue<UnityEntity> availableEntities = new();
+        private readonly Queue<MonoEntity> availableEntities = new();
 
-        public UnityEntity Get()
+        public MonoEntity Get()
         {
-            UnityEntity entity;
+            MonoEntity entity;
             if (this.availableEntities.Count > 0)
             {
                 entity = this.availableEntities.Dequeue();
@@ -34,7 +34,7 @@ namespace Game.GameEngine.Entities
             return entity;
         }
 
-        public void Release(UnityEntity entity)
+        public void Release(MonoEntity entity)
         {
             var entityObject = entity.gameObject;
             entityObject.SetActive(false);

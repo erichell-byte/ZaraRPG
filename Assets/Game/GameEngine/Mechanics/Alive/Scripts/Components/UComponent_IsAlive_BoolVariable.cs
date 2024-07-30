@@ -31,10 +31,10 @@ namespace Game.GameEngine.Mechanics
             
             if (this.invert)
             {
-                return !this.isAlive.Value;
+                return !this.isAlive.Current;
             }
 
-            return this.isAlive.Value;
+            return this.isAlive.Current;
         }
     }
 }

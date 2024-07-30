@@ -14,7 +14,8 @@ namespace Game.Gameplay.Conveyors
 
         public void SetupItems(int currentAmount)
         {
-            this.currentAmount = Mathf.Min(currentAmount, this.items.Count);
+            currentAmount = Mathf.Clamp(currentAmount, 0, this.items.Count);
+            this.currentAmount = currentAmount;
 
             for (var i = 0; i < currentAmount; i++)
             {

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Game.Meta
 {
+    //TODO: Rename InventoryItemProductMetadata
     [Serializable]
     public sealed class ProductMetadata_InventoryItem : IProductMetadata
     {

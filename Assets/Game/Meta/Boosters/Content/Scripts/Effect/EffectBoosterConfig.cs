@@ -13,9 +13,9 @@ namespace Game.Meta
         [SerializeField]
         public IEffect effect = new Effect();
 
-        public override Booster InstantiateBooster(MonoBehaviour context)
+        public override Booster InstantiateBooster()
         {
-            return new EffectBooster(this, context);
+            return new EffectBooster(this);
         }
     }
 }

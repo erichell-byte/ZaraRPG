@@ -7,7 +7,7 @@ namespace Game.GameEngine.Mechanics
     public sealed class UMoveInDirectionMechanics : MonoBehaviour
     {
         [SerializeField]
-        private UMoveInDirectionEngine moveEngine;
+        private UMoveInDirectionMotor moveEngine;
 
         [SerializeField]
         private UTransformEngine transformEngine;
@@ -25,7 +25,7 @@ namespace Game.GameEngine.Mechanics
 
         private void MoveTransform(Vector3 direction)
         {
-            var velocity = direction * (this.moveSpeed.Value * Time.fixedDeltaTime);
+            var velocity = direction * (this.moveSpeed.Current * Time.fixedDeltaTime);
             this.transformEngine.MovePosition(velocity);
             this.transformEngine.LookInDirection(direction);
         }

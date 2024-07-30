@@ -11,7 +11,7 @@ namespace Game.GameEngine.Mechanics
         public MonoEmitter hitReceiver;
 
         [SerializeField]
-        public UHarvestResourceEngine engine;
+        public UHarvestResourceOperator engine;
 
         [Space]
         [SerializeField]
@@ -35,7 +35,7 @@ namespace Game.GameEngine.Mechanics
 
         private void OnResourceHit()
         {
-            var resourceType = this.engine.CurrentOperation.targetResource
+            var resourceType = this.engine.Current.targetResource
                 .Get<IComponent_GetResourceType>()
                 .Type;
 

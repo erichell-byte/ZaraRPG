@@ -6,7 +6,7 @@ namespace Game.Tutorial.App
     public class TutorialMediator :
         IAppInitListener,
         IAppStartListener,
-        IAppStopListener
+        IAppQuitListener
     {
         [ServiceInject]
         private TutorialRepository repository;
@@ -25,7 +25,7 @@ namespace Game.Tutorial.App
             this.tutorialManager.OnCompleted += this.OnTutorialCompleted;
         }
 
-        void IAppStopListener.Stop()
+        void IAppQuitListener.OnQuit()
         {
             this.tutorialManager.OnStepFinished -= this.OnTutorialStepFinished;
             this.tutorialManager.OnCompleted -= this.OnTutorialCompleted;
@@ -52,7 +52,7 @@ namespace Game.Tutorial.App
             return this.repository.LoadState(out data);
         }
 
-        private void OnTutorialStepFinished(TutorialStep step)
+        private void OnTutorialStepFinished(TutorialStepType step)
         {
             var nextStepIndex = this.tutorialManager.IndexOfStep(step) + 1;
 

@@ -2,18 +2,17 @@ using Game.Gameplay.Player;
 using GameSystem;
 using Game.GameEngine;
 using Game.Gameplay;
-using UnityEngine;
 
 namespace Game.Meta
 {
     public sealed class IncomeBooster : Booster
     {
         [GameInject]
-        private VendorSaleInteractor vendorInteractor;
+        private VendorInteractor vendorInteractor;
 
         private readonly IncomeBoosterConfig config;
 
-        public IncomeBooster(IncomeBoosterConfig config, MonoBehaviour context) : base(config, context)
+        public IncomeBooster(IncomeBoosterConfig config) : base(config)
         {
             this.config = config;
         }

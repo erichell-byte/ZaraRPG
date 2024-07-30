@@ -7,30 +7,29 @@ namespace Game.GameEngine.Mechanics
     [AddComponentMenu("GameEngine/Mechanics/Effects/Component «Effector»")]
     public sealed class UComponent_Effector : MonoBehaviour, IComponent_Effector
     {
-        public event Action<IEffect> OnEffectAdded
+        public event Action<IEffect> OnApplied
         {
-            add { this.engine.OnEffectAdded += value; }
-            remove { this.engine.OnEffectAdded -= value; }
+            add { this.effector.OnApplied += value; }
+            remove { this.effector.OnApplied -= value; }
         }
 
-        public event Action<IEffect> OnEffectRemoved
+        public event Action<IEffect> OnDiscarded
         {
-            add { this.engine.OnEffectRemoved += value; }
-            remove { this.engine.OnEffectRemoved -= value; }
+            add { this.effector.OnDiscarded += value; }
+            remove { this.effector.OnDiscarded -= value; }
         }
 
-        [FormerlySerializedAs("receiver")]
         [SerializeField]
-        private UEffectEngine engine;
+        private UEffector effector;
         
-        public void AddEffect(IEffect effect)
+        public void Apply(IEffect effect)
         {
-            this.engine.AddEffect(effect);
+            this.effector.Apply(effect);
         }
 
-        public void RemoveEffect(IEffect effect)
+        public void Discard(IEffect effect)
         {
-            this.engine.RemoveEffect(effect);
+            this.effector.Discard(effect);
         }
     }
 }

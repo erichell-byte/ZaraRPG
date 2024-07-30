@@ -2,7 +2,10 @@ using Services;
 
 namespace Game.App
 {
-    public sealed class AudioSettingsMediator : IAppInitListener, IGameSaveDataListener
+    public sealed class AudioSettingsMediator : 
+        IAppInitListener,
+        IAppPauseListener,
+        IAppQuitListener
     {
         [ServiceInject]
         private AudioSettingsRepository repository;
@@ -11,8 +14,13 @@ namespace Game.App
         {
             this.LoadSettings();
         }
+        
+        void IAppPauseListener.OnPaused()
+        {
+            this.SaveSettings();
+        }
 
-        void IGameSaveDataListener.OnSaveData(GameSaveReason reason)
+        void IAppQuitListener.OnQuit()
         {
             this.SaveSettings();
         }

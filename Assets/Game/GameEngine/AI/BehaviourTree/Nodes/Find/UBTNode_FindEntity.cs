@@ -36,7 +36,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.entitiesService = context.GetService<EntitiesService>();
         }

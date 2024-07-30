@@ -8,8 +8,8 @@ namespace Game.App
     {
         public async void Do(Action<LoadingResult> callback)
         {
-            var installer = ServiceLocator.GetService<TutorialInstaller>();
-            await installer.InstallTutorialAsync();
+            var installer = ServiceLocator.GetService<TutorialDeployer>();
+            await installer.DeployTutorial();
             callback?.Invoke(LoadingResult.Success());
         }
     }

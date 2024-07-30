@@ -23,6 +23,8 @@ MonoBehaviour:
     className: Game.App.LoadingTask_InitApplicationServices
   - script: {fileID: 11500000, guid: c0907386e6d24abebca77fef3cb9016b, type: 3}
     className: Game.App.LoadingTask_StartApplicationServices
+  - script: {fileID: 11500000, guid: c645ef0cfa36494b9ddd27352aab750d, type: 3}
+    className: Game.App.LoadingTask_InstallApplicationManager
   - script: {fileID: 11500000, guid: 30328f7793d645ce88d6274fa3c111af, type: 3}
     className: Game.App.LoadingTask_InstallDatabase
   - script: {fileID: 11500000, guid: 309c86feea5b459ba8534e5c73f97605, type: 3}

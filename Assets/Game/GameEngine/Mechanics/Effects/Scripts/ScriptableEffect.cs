@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Game.GameEngine.Mechanics
 {
+    [CreateAssetMenu(
+        fileName = "ScriptableEffect",
+        menuName = "GameEngine/Mechanics/Effects/New ScriptableEffect"
+    )]
     public sealed class ScriptableEffect : SerializedScriptableObject, IEffect
     {
         [SerializeField]
@@ -10,12 +14,12 @@ namespace Game.GameEngine.Mechanics
 
         private Effect effect;
 
-        public T GetParameter<T>(EffectParameterKey name)
+        public T GetParameter<T>(EffectId name)
         {
             return this.effect.GetParameter<T>(name);
         }
 
-        public bool TryGetParameter<T>(EffectParameterKey name, out T value)
+        public bool TryGetParameter<T>(EffectId name, out T value)
         {
             return this.effect.TryGetParameter(name, out value);
         }

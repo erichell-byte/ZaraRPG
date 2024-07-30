@@ -4,28 +4,32 @@ using Elementary;
 namespace Game.GameEngine.Mechanics
 {
     [Serializable]
-    public sealed class MoveInDirectionState_Position : StateFixedUpdated
+    public sealed class MoveInDirectionState_Position : StateFixedUpdate
     {
-        private IMoveInDirectionEngine moveEngine;
+        private IMoveInDirectionMotor motor;
 
-        private ITransformEngine transformEngine;
+        private ITransformEngine transform;
 
-        private IValue<float> moveSpeed;
+        private IValue<float> speed;
 
-        public void Construct(
-            IMoveInDirectionEngine moveEngine,
-            ITransformEngine transformEngine,
-            IValue<float> speed
-        )
+        public void ConstructMotor(IMoveInDirectionMotor motor)
         {
-            this.moveEngine = moveEngine;
-            this.transformEngine = transformEngine;
-            this.moveSpeed = speed;
+            this.motor = motor;
         }
-        
+
+        public void ConstructTransform(ITransformEngine transform)
+        {
+            this.transform = transform;
+        }
+
+        public void ConstructSpeed(IValue<float> speed)
+        {
+            this.speed = speed;
+        }
+
         protected override void FixedUpdate(float deltaTime)
         {
-            if (this.moveEngine.IsMoving)
+            if (this.motor.IsMoving)
             {
                 this.MoveInDirection(deltaTime);
             }
@@ -33,8 +37,8 @@ namespace Game.GameEngine.Mechanics
 
         private void MoveInDirection(float deltaTime)
         {
-            var velocity = this.moveEngine.Direction * (this.moveSpeed.Value * deltaTime);
-            this.transformEngine.MovePosition(velocity);
+            var velocity = this.motor.Direction * (this.speed.Current * deltaTime);
+            this.transform.MovePosition(velocity);
         }
     }
 }

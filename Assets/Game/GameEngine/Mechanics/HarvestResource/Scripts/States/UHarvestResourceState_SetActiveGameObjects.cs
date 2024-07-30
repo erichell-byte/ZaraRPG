@@ -13,7 +13,7 @@ namespace Game.GameEngine.Mechanics
 
         [Space]
         [SerializeField]
-        private UHarvestResourceEngine engine;
+        private UHarvestResourceOperator engine;
 
         [Space]
         [SerializeField]
@@ -24,7 +24,7 @@ namespace Game.GameEngine.Mechanics
         public override void Enter()
         {
             var resourceType = this.engine
-                .CurrentOperation
+                .Current
                 .targetResource
                 .Get<IComponent_GetResourceType>()
                 .Type;

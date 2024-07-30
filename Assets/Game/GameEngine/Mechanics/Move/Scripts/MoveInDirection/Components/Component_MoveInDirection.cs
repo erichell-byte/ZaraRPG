@@ -28,9 +28,9 @@ namespace Game.GameEngine.Mechanics
             get { return this.engine.IsMoving; }
         }
 
-        private readonly IMoveInDirectionEngine engine;
+        private readonly IMoveInDirectionMotor engine;
 
-        public Component_MoveInDirection(IMoveInDirectionEngine engine)
+        public Component_MoveInDirection(IMoveInDirectionMotor engine)
         {
             this.engine = engine;
         }
@@ -42,7 +42,7 @@ namespace Game.GameEngine.Mechanics
 
         public void Move(Vector3 direction)
         {
-            this.engine.Move(direction);
+            this.engine.RequestMove(direction);
         }
     }
 }

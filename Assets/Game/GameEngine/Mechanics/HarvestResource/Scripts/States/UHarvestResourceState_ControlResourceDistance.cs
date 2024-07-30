@@ -7,14 +7,14 @@ namespace Game.GameEngine.Mechanics
     {
         [Space]
         [SerializeField]
-        public UHarvestResourceEngine engine;
+        public UHarvestResourceOperator engine;
 
         public IComponent_GetPosition targetComponent;
 
         public override void Enter()
         {
             this.targetComponent = engine
-                .CurrentOperation
+                .Current
                 .targetResource
                 .Get<IComponent_GetPosition>();
             
@@ -25,7 +25,7 @@ namespace Game.GameEngine.Mechanics
         {
             if (!distanceReached)
             {
-                this.engine.StopHarvest();
+                this.engine.Stop();
             }
         }
 

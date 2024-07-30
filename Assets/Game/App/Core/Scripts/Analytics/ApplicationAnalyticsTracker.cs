@@ -5,7 +5,7 @@ namespace Game.Analytics
 {
     public sealed class ApplicationAnalyticsTracker : 
         IAppStartListener,
-        IAppStopListener
+        IAppQuitListener
     {
         [ServiceInject]
         private ApplicationManager applicationManager;
@@ -19,7 +19,7 @@ namespace Game.Analytics
             ApplicationAnalytics.LogApplicationStarted();
         }
 
-        void IAppStopListener.Stop()
+        void IAppQuitListener.OnQuit()
         {
             this.applicationManager.OnPaused -= this.OnAppPaused;
             this.applicationManager.OnResumed -= this.OnAppResumed;

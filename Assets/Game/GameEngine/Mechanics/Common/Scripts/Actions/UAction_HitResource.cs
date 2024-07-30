@@ -8,19 +8,19 @@ namespace Game.GameEngine.Mechanics
     public sealed class UAction_HitResource : MonoAction
     {
         [SerializeField]
-        public UHarvestResourceEngine engine;
+        public UHarvestResourceOperator engine;
 
         [Title("Methods")]
         [Button]
         [GUIColor(0, 1, 0)]
         public override void Do()
         {
-            if (!this.engine.IsHarvesting)
+            if (!this.engine.IsActive)
             {
                 return;
             }
 
-            this.engine.CurrentOperation
+            this.engine.Current
                 .targetResource
                 .Get<IComponent_Hit>()
                 .Hit();

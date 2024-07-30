@@ -13,19 +13,13 @@ namespace Game.GameEngine.AI
             get { return this.moveAgent; }
         }
 
-        private readonly Agent_Entity_MoveToPosition moveAgent;
+        private readonly Agent_Entity_MoveToPosition moveAgent = new();
         
         private MonoPolygon surface;
 
         private IComponent_GetPosition followerComponent;
 
         private IComponent_GetPosition targetComponent;
-
-        public Agent_Entity_FollowEntityByPolygon(MonoBehaviour coroutineDispatcher) :
-            base(coroutineDispatcher)
-        {
-            this.moveAgent = new Agent_Entity_MoveToPosition(coroutineDispatcher);
-        }
 
         public void SetSurface(MonoPolygon polygon)
         {
@@ -43,7 +37,7 @@ namespace Game.GameEngine.AI
             this.targetComponent = target.Get<IComponent_GetPosition>();
         }
 
-        public void SetMinPointDistance(float stoppingDistance)
+        public void SetIntermediateDistance(float stoppingDistance)
         {
             this.moveAgent.SetStoppingDistance(stoppingDistance);
         }

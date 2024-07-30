@@ -3,16 +3,26 @@ using UnityEngine;
 
 namespace Game.GameEngine.Mechanics
 {
-    public abstract class State_CheckDistanceToTarget : StateFixedUpdated
+    public abstract class State_CheckDistanceToTarget : StateFixedUpdate
     {
-        public ITransformEngine transformEngine;
+        private ITransformEngine transform;
 
-        public IValue<float> minDistance;
+        private IValue<float> minDistance;
+
+        public void ConstructTransform(ITransformEngine transform)
+        {
+            this.transform = transform;
+        }
+
+        public void ConstructMinDistance(IValue<float> minDistance)
+        {
+            this.minDistance = minDistance;
+        }
 
         protected override void FixedUpdate(float deltaTime)
         {
             var targetPosiiton = this.GetTargetPosition();
-            var distanceReached = this.transformEngine.IsDistanceReached(targetPosiiton, this.minDistance.Value);
+            var distanceReached = this.transform.IsDistanceReached(targetPosiiton, this.minDistance.Current);
             this.ProcessDistance(distanceReached);
         }
 

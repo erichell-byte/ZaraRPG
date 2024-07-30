@@ -83,7 +83,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6177637439356589147}
         m_TargetAssemblyTypeName: Game.UISoundComponent, Assembly-CSharp
-        m_MethodName: PlayShowPopup
+        m_MethodName: ShowPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8809413243723258090}
         m_TargetAssemblyTypeName: Popups.Unity.MonoPopup, Assembly-CSharp
-        m_MethodName: Close
+        m_MethodName: NotifyAboutClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

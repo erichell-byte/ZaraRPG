@@ -1,12 +1,12 @@
 using Elementary;
-using MonoOptimization;
+using Declarative;
 using UnityEngine;
 
 namespace Game.Gameplay.Conveyors
 {
     public sealed class ConveyorVisualAdapter :
-        IEnableComponent,
-        IDisableComponent
+        IEnableListener,
+        IDisableListener
     {
         private ITimer workTimer;
 
@@ -18,13 +18,13 @@ namespace Game.Gameplay.Conveyors
             this.conveyor = conveyor;
         }
 
-        void IEnableComponent.OnEnable()
+        void IEnableListener.OnEnable()
         {
             this.workTimer.OnStarted += this.OnStartWork;
             this.workTimer.OnFinished += this.OnFinishWork;
         }
 
-        void IDisableComponent.OnDisable()
+        void IDisableListener.OnDisable()
         {
             this.workTimer.OnStarted -= this.OnStartWork;
             this.workTimer.OnFinished -= this.OnFinishWork;

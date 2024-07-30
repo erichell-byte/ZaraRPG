@@ -3,12 +3,12 @@ using Game.GameEngine.GameResources;
 using Game.GameEngine.Products;
 using Game.Gameplay.Player;
 using GameSystem;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class ProductListPresenter : UnityFrame, IGameConstructElement
+    public sealed class ProductListPresenter : MonoWindow, IGameConstructElement
     {
         [SerializeField]
         private ProductView viewPrefab;
@@ -46,12 +46,12 @@ namespace Game.Meta
             }
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.CreateProducts(context);
         }
 
-        private void CreateProducts(IGameContext context)
+        private void CreateProducts(GameContext context)
         {
             var buyManager = context.GetService<ProductBuyer>();
             var moneyStorage = context.GetService<MoneyStorage>();

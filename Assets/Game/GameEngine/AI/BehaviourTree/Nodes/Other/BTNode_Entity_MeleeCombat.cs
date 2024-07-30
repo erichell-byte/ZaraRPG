@@ -3,39 +3,29 @@ using AI.Blackboards;
 using AI.BTree;
 using Entities;
 using Game.GameEngine.Mechanics;
-using UnityEngine;
 
 namespace Game.GameEngine.AI
 {
     [Serializable]
     public sealed class BTNode_Entity_MeleeCombat : BehaviourNode
     {
-        public string AttackerKey
-        {
-            set => attackerKey = value;
-        }
+        private IBlackboard blackboard;
 
-        public string TargetKey
-        {
-            set => targetKey = value;
-        }
-
-        [Space]
-        [BlackboardKey]
-        [SerializeField]
         private string attackerKey;
 
-        [BlackboardKey]
-        [SerializeField]
         private string targetKey;
-
-        private IBlackboard blackboard;
 
         private IComponent_MeleeCombat unitComponent;
 
-        public void Construct(IBlackboard blackboard)
+        public void ConstructBlackboard(IBlackboard blackboard)
         {
             this.blackboard = blackboard;
+        }
+
+        public void ConstructBlackboardKeys(string attackerKey, string targetKey)
+        {
+            this.attackerKey = attackerKey;
+            this.targetKey = targetKey;
         }
 
         protected override void Run()
@@ -58,7 +48,7 @@ namespace Game.GameEngine.AI
 
         private void TryStartCombat(IEntity target)
         {
-            var operation = new MeleeCombatOperation(target);
+            var operation = new CombatOperation(target);
             if (this.unitComponent.CanStartCombat(operation))
             {
                 this.unitComponent.OnCombatStopped += this.OnCombatFinished;
@@ -70,7 +60,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        private void OnCombatFinished(MeleeCombatOperation operation)
+        private void OnCombatFinished(CombatOperation operation)
         {
             if (this.unitComponent != null)
             {

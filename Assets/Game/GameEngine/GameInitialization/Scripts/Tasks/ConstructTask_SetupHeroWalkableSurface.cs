@@ -9,9 +9,9 @@ namespace Game.GameEngine
         fileName = "Task «Setup Hero Walkable Surface»",
         menuName = "GameEngine/Construct/New Task «Setup Hero Walkable Surface»"
     )]
-    public sealed class ConstructTask_SetupHeroWalkableSurface : ConstructTask
+    public sealed class ConstructTask_SetupHeroWalkableSurface : GameContext.ConstructTask
     {
-        public override void Construct(IGameContext gameContext)
+        public override void Construct(GameContext gameContext)
         {
             var walkablePolygons = GameObject.FindGameObjectsWithTag("Surface");
             var walkableSurface = gameContext.GetService<HeroWalkableSurface>();
@@ -23,7 +23,7 @@ namespace Game.GameEngine
             }
             
             var hero = gameContext.GetService<HeroService>().GetHero();
-            hero.Get<Component_SetWalkableSurface>().SetSurface(walkableSurface);
+            hero.Get<IComponent_SetWalkableSurface>().SetSurface(walkableSurface);
         }
     }
 }

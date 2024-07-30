@@ -5,7 +5,7 @@ namespace Game.Meta
     public sealed class MissionFactory
     {
         [GameInject]
-        private IGameContext gameContext;
+        private GameContext gameContext;
 
         public Mission CreateMission(MissionConfig config)
         {

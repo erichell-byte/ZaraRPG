@@ -6,7 +6,7 @@ namespace Game.GameEngine.Mechanics
     public abstract class UEnableObserver : MonoBehaviour
     {
         [SerializeField]
-        public UnityEntity entity;
+        public MonoEntity entity;
 
         protected virtual void Awake()
         {

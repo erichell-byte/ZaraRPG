@@ -7,15 +7,13 @@ namespace Game.GameEngine.Animation
     [Serializable]
     public sealed class AnimatorState_ResetRootMotion : State
     {
-        private AnimatorSystem system;
+        public bool resetPosition = true;
 
-        [SerializeField]
-        private bool resetPosition = true;
+        public bool resetRotation = true;
 
-        [SerializeField]
-        private bool resetRotation = true;
+        private AnimatorMachine system;
 
-        public void Construct(AnimatorSystem system)
+        public void ConstructMachine(AnimatorMachine system)
         {
             this.system = system;
         }

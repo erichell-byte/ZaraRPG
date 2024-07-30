@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Game.Localization
 {
     [Serializable]
-    public sealed class TextComponent_TranslationText : IComponent
+    public sealed class TextComponent_TranslationText : ILocalizationComponent
     {
         [SerializeField]
         private Text text;

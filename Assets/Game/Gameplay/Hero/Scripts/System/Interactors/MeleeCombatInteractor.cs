@@ -45,7 +45,7 @@ namespace Game.Gameplay.Hero
         {
             yield return new WaitForSeconds(this.delay);
 
-            var operation = new MeleeCombatOperation(target);
+            var operation = new CombatOperation(target);
             if (this.heroComponent.CanStartCombat(operation))
             {
                 this.heroComponent.StartCombat(operation);

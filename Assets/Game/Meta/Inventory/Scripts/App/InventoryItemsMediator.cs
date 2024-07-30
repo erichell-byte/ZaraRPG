@@ -16,9 +16,9 @@ namespace Game.Meta
 
         private StackableInventory playerInventory;
 
-        void IGameLoadDataListener.OnLoadData(GameManager gameManager)
+        void IGameLoadDataListener.OnLoadData(GameContainer gameContainer)
         {
-            this.playerInventory = gameManager.GetService<InventoryService>().GetInventory();
+            this.playerInventory = gameContainer.GetService<InventoryService>().GetInventory();
             if (this.repository.LoadItems(out var itemsData))
             {
                 this.SetupItems(itemsData);

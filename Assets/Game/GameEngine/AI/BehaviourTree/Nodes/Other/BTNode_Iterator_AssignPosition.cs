@@ -9,30 +9,21 @@ namespace Game.GameEngine.AI
     [Serializable]
     public sealed class BTNode_Iterator_AssignPosition : BehaviourNode
     {
-        public string IteratorKey
-        {
-            set => iteratorKey = value;
-        }
-
-        public string ResultPositionKey
-        {
-            set => resultPositionKey = value;
-        }
-
         private IBlackboard blackboard;
 
-        [Space]
-        [BlackboardKey]
-        [SerializeField]
         private string iteratorKey;
 
-        [BlackboardKey]
-        [SerializeField]
-        private string resultPositionKey;
+        private string positionKey;
 
-        public void Construct(IBlackboard blackboard)
+        public void ConstructBlackboard(IBlackboard blackboard)
         {
             this.blackboard = blackboard;
+        }
+
+        public void ConstructBlackboardKeys(string iteratorKey, string positionKey)
+        {
+            this.iteratorKey = iteratorKey;
+            this.positionKey = positionKey;
         }
 
         protected override void Run()
@@ -43,7 +34,7 @@ namespace Game.GameEngine.AI
                 return;
             }
 
-            this.blackboard.ReplaceVariable(this.resultPositionKey, iterator.Current);
+            this.blackboard.ReplaceVariable(this.positionKey, iterator.Current);
             this.Return(true);
         }
     }

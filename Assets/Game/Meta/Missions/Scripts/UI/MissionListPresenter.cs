@@ -1,12 +1,12 @@
 using System;
 using Game.Gameplay.Player;
 using GameSystem;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class MissionListPresenter : UnityFrame, IGameConstructElement
+    public sealed class MissionListPresenter : MonoWindow, IGameConstructElement
     {
         [SerializeField]
         private MissionItem[] missionItems;
@@ -48,7 +48,7 @@ namespace Game.Meta
             presenter.Start(mission);
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.missionsManager = context.GetService<MissionsManager>();
             var moneyPanelAnimator = context.GetService<MoneyPanelAnimator_AddMoney>();

@@ -15,7 +15,7 @@ namespace Game.GameEngine.Mechanics
 
         public bool IsEnable
         {
-            get { return this.isEnable.Value; }
+            get { return this.isEnable.Current; }
         }
 
         public void SetEnable(bool isEnable)

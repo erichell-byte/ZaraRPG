@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class UpgradesAssetSupplier : IAppConfigsLoader
+    public sealed class UpgradesAssetSupplier : IConfigLoader
     {
         private const string UPGRADE_CATALOG = "UpgradeCatalog";
 
@@ -19,7 +19,7 @@ namespace Game.Meta
             return this.catalog.GetAllUpgrades();
         }
 
-        void IAppConfigsLoader.LoadConfigs()
+        void IConfigLoader.LoadConfigs()
         {
             this.catalog = Resources.Load<UpgradeCatalog>(UPGRADE_CATALOG);
         }

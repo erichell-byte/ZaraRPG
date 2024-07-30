@@ -10,7 +10,7 @@ namespace Game.GameEngine.Mechanics
         IGameFinishElement
     {
         [SerializeField]
-        public UnityEntity unit;
+        public MonoEntity unit;
 
         void IGameStartElement.StartGame()
         {

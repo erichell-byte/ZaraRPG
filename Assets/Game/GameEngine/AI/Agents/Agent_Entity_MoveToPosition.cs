@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.GameEngine.AI
 {
-    public class Agent_Entity_MoveToPosition : Agent_MoveToTarget<Vector3>
+    public sealed class Agent_Entity_MoveToPosition : Agent_MoveToTarget<Vector3>
     {
         private IComponent_MoveInDirection moveComponent;
 
@@ -13,9 +13,9 @@ namespace Game.GameEngine.AI
 
         private float sqrStoppingDistance = 0.01f;
 
-        public Agent_Entity_MoveToPosition(MonoBehaviour coroutineDispatcher)
-            : base(coroutineDispatcher, new WaitForFixedUpdate())
+        public Agent_Entity_MoveToPosition()
         {
+            this.SetFramePeriod(new WaitForFixedUpdate());
         }
 
         public void SetMovingEntity(IEntity movingEntity)
@@ -32,7 +32,8 @@ namespace Game.GameEngine.AI
         protected override bool CheckTargetReached(Vector3 target)
         {
             var moveVector = this.EvaluateMoveVector(target);
-            return moveVector.sqrMagnitude <= this.sqrStoppingDistance;
+            var targetReached = moveVector.sqrMagnitude <= this.sqrStoppingDistance;
+            return targetReached;
         }
 
         protected override void MoveToTarget(Vector3 target)

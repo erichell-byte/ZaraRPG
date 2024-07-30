@@ -1,42 +1,41 @@
 using Game.App;
+using JetBrains.Annotations;
 using Services;
 
 namespace Game.Gameplay.Player
 {
-    public sealed class MoneyMediator :
-        IGameLoadDataListener,
-        IGameSaveDataListener
+    [UsedImplicitly]
+    public sealed class MoneyMediator : LazyMediator<MoneyRepository, MoneyStorage>
     {
-        private MoneyRepository repository;
-
-        private MoneyStorage storage;
-
-        [ServiceInject]
-        public void Construct(MoneyRepository repository)
+        protected override void OnLoadData(MoneyRepository repository, MoneyStorage storage)
         {
-            this.repository = repository;
-        }
-        
-        void IGameLoadDataListener.OnLoadData(GameManager gameManager)
-        {
-            this.storage = gameManager.GetService<MoneyStorage>();
-            this.LoadMoney();
-        }
-
-        void IGameSaveDataListener.OnSaveData(GameSaveReason reason)
-        {
-            this.repository.SaveMoney(this.storage.Money);
-        }
-        
-        private void LoadMoney()
-        {
-            if (!this.repository.LoadMoney(out var money))
+            if (!repository.LoadMoney(out var money))
             {
                 var config = MoneyStorageConfig.LoadAsset();
                 money = config.InitialMoney;
             }
 
-            this.storage.SetupMoney(money);
+            storage.SetupMoney(money);
+        }
+
+        protected override void OnSaveData(MoneyRepository repository, MoneyStorage storage)
+        {
+            repository.SaveMoney(storage.Money);
+        }
+
+        protected override void OnStartGame(MoneyStorage moneyStorage)
+        {
+            moneyStorage.OnMoneyChanged += this.OnMoneyChanged;
+        }
+
+        protected override void OnStopGame(MoneyStorage moneyStorage)
+        {
+            moneyStorage.OnMoneyChanged -= this.OnMoneyChanged;
+        }
+
+        private void OnMoneyChanged(int money)
+        {
+            this.MarkSaveRequired();
         }
     }
 }

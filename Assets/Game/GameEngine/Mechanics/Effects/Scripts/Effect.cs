@@ -20,7 +20,7 @@ namespace Game.GameEngine.Mechanics
             this.parameters = new List<IEffectParameter>(parameters);
         }
 
-        public T GetParameter<T>(EffectParameterKey name)
+        public T GetParameter<T>(EffectId name)
         {
             for (int i = 0, count = this.parameters.Count; i < count; i++)
             {
@@ -34,7 +34,7 @@ namespace Game.GameEngine.Mechanics
             throw new Exception($"Parameter {name} is not found!");
         }
 
-        public bool TryGetParameter<T>(EffectParameterKey name, out T value)
+        public bool TryGetParameter<T>(EffectId name, out T value)
         {
             for (int i = 0, count = this.parameters.Count; i < count; i++)
             {

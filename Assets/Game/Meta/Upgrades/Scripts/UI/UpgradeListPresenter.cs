@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Game.Gameplay.Player;
 using GameSystem;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.Meta
 {
     [AddComponentMenu(UpgradeExtensions.MENU_PATH + "Upgrade List Presenter")]
-    public sealed class UpgradeListPresenter : UnityFrame, IGameConstructElement
+    public sealed class UpgradeListPresenter : MonoWindow, IGameConstructElement
     {
         [SerializeField]
         private UpgradeView viewPrefab;
@@ -80,7 +80,7 @@ namespace Game.Meta
             this.views.Clear();
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.upgradesManager = context.GetService<UpgradesManager>();
             this.moneyStorage = context.GetService<MoneyStorage>();

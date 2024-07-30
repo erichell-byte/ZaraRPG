@@ -2,8 +2,8 @@ namespace Game.GameEngine.Mechanics
 {
     public interface IEffect
     {
-        T GetParameter<T>(EffectParameterKey name);
+        T GetParameter<T>(EffectId name);
 
-        bool TryGetParameter<T>(EffectParameterKey name, out T value);
+        bool TryGetParameter<T>(EffectId name, out T value);
     }
 }

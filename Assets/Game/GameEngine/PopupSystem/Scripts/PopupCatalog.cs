@@ -1,5 +1,5 @@
 using System;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.GameEngine
@@ -14,7 +14,7 @@ namespace Game.GameEngine
         [SerializeField]
         private PopupInfo[] popups = Array.Empty<PopupInfo>();
 
-        public UnityFrame LoadPrefab(PopupName name)
+        public MonoWindow LoadPrefab(PopupName name)
         {
             for (int i = 0, count = this.popups.Length; i < count; i++)
             {
@@ -35,7 +35,7 @@ namespace Game.GameEngine
             public PopupName name;
             
             [SerializeField]
-            public UnityFrame prefab;
+            public MonoWindow prefab;
         }
     }
 }

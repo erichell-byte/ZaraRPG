@@ -6,9 +6,9 @@ namespace Game.GameEngine.Animation
     [Serializable]
     public sealed class AnimatorState_ApplyRootMotion : State
     {
-        private AnimatorSystem system;
+        private AnimatorMachine system;
 
-        public void Construct(AnimatorSystem system)
+        public void ConstructMachine(AnimatorMachine system)
         {
             this.system = system;
         }

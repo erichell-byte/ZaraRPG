@@ -7,11 +7,11 @@ namespace Game.GameEngine.Mechanics
     public sealed class UEventMechanics_RestoreHitPoints : MonoEventMechanics
     {
         [SerializeField]
-        public UHitPointsEngine hitPointsEngine;
+        public UHitPoints hitPointsEngine;
 
         protected override void OnEvent()
         {
-            this.hitPointsEngine.CurrentHitPoints = this.hitPointsEngine.MaxHitPoints;
+            this.hitPointsEngine.RestoreToFull();
         }
     }
 }

@@ -13,10 +13,10 @@ namespace Game.GameEngine.Mechanics
     {
         [Space]
         [SerializeField]
-        private UHarvestResourceEngine mechanics;
+        private UHarvestResourceOperator mechanics;
 
         [SerializeField]
-        private UAnimatorSystem animatorEngine;
+        private UAnimatorMachine animatorEngine;
 
         [Space]
         [SerializeField]
@@ -41,13 +41,13 @@ namespace Game.GameEngine.Mechanics
         {
             if (this.hasExitAnimation)
             {
-                this.animatorEngine.ChangeState(this.exitAnimation.Value);
+                this.animatorEngine.ChangeState(this.exitAnimation.Current);
             }
         }
 
         private int SelectAnimation()
         {
-            var operation = this.mechanics.CurrentOperation;
+            var operation = this.mechanics.Current;
             var resourceType = operation
                 .targetResource
                 .Get<IComponent_GetResourceType>()
@@ -58,7 +58,7 @@ namespace Game.GameEngine.Mechanics
                 var animation = this.enterAnimations[i];
                 if (animation.resourceType == resourceType)
                 {
-                    return animation.info.Value;
+                    return animation.info.Current;
                 }
             }
 

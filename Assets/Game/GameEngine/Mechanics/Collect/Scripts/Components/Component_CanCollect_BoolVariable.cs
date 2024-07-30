@@ -6,7 +6,7 @@ namespace Game.GameEngine.Mechanics
     {
         public bool CanCollect
         {
-            get { return this.isActive.Value; }
+            get { return this.isActive.Current; }
         }
 
         private readonly IVariable<bool> isActive;

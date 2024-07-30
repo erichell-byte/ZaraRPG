@@ -10,7 +10,7 @@ namespace Game.GameEngine.Mechanics
     {
         public bool IsVisible
         {
-            get { return this.isVisible.Value; }
+            get { return this.isVisible.Current; }
         }
 
         [SerializeField]
@@ -18,7 +18,7 @@ namespace Game.GameEngine.Mechanics
 
         public void SetVisible(bool isVisible)
         {
-            this.isVisible.Value = isVisible;
+            this.isVisible.Current = isVisible;
         }
     }
 }

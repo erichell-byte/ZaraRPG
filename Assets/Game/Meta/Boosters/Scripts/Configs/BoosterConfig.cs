@@ -21,6 +21,6 @@ namespace Game.Meta
         [SerializeField]
         public BoosterMetadata metadata;
 
-        public abstract Booster InstantiateBooster(MonoBehaviour context);
+        public abstract Booster InstantiateBooster();
     }
 }

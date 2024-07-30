@@ -1,56 +1,34 @@
-using System.Collections.Generic;
 using Game.App;
 using Services;
-using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class MisssionsMediator :
-        IGameLoadDataListener, 
-        IGameSaveDataListener
+    public sealed class MisssionsMediator : BaseMediator<MissionsDao, MissionsManager>
     {
         [ServiceInject]
         private MissionsAssetSupplier assetSupplier;
 
-        [ServiceInject]
-        private MissionsDao dao;
-
-        private MissionsManager missionsManager;
-
-        void IGameLoadDataListener.OnLoadData(GameManager gameManager)
+        protected override void OnLoadData(MissionsDao dao, MissionsManager manager)
         {
-            this.missionsManager = gameManager.GetService<MissionsManager>();
-            if (this.dao.SelectMissions(out var missionsData))
+            if (!dao.SelectMissions(out var missionsData))
             {
-                this.SetupMissions(missionsData);
+                return;
             }
-        }
 
-        void IGameSaveDataListener.OnSaveData(GameSaveReason reason)
-        {
-            this.dao.DeleteMissions();
-            this.InsertMissions();
-        }
-
-        private void SetupMissions(List<MissionData> missionsData)
-        {
             for (int i = 0, count = missionsData.Count; i < count; i++)
             {
                 var data = missionsData[i];
-                this.SetupMission(data);
+                var config = this.assetSupplier.GetMission(data.id);
+                var mission = manager.SetupMission(config);
+                config.DeserializeTo(data.serializedState, mission);
             }
         }
 
-        private void SetupMission(MissionData data)
+        protected override void OnSaveData(MissionsDao dao, MissionsManager manager)
         {
-            var config = this.assetSupplier.GetMission(data.id);
-            var mission = this.missionsManager.SetupMission(config);
-            config.DeserializeTo(data.serializedState, mission);
-        }
-
-        private void InsertMissions()
-        {
-            var actualMissions = this.missionsManager.GetMissions();
+            dao.DeleteMissions();
+            
+            var actualMissions = manager.GetMissions();
             var count = actualMissions.Length;
             var dataArray = new MissionData[count];
 
@@ -61,9 +39,9 @@ namespace Game.Meta
                 dataArray[i] = data;
             }
 
-            this.dao.InsertMissions(dataArray);
+            dao.InsertMissions(dataArray);
         }
-
+        
         private MissionData ConvertToData(Mission mission)
         {
             var id = mission.Id;

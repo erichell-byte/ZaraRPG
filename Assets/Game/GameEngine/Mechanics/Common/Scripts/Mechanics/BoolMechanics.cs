@@ -1,30 +1,37 @@
+using System;
 using Elementary;
-using MonoOptimization;
+using Declarative;
 
 namespace Game.GameEngine.Mechanics
 {
-    public abstract class BoolMechanics :
-        IAwakeComponent,
-        IEnableComponent,
-        IDisableComponent
+    public sealed class BoolMechanics :
+        IAwakeListener,
+        IEnableListener,
+        IDisableListener
     {
-        public IVariable<bool> variable;
+        private IVariable<bool> variable;
 
-        void IAwakeComponent.Awake()
+        private Action<bool> action;
+
+        public void Construct(IVariable<bool> variable, Action<bool> action)
         {
-            this.SetValue(this.variable.Value);
+            this.variable = variable;
+            this.action = action;
         }
 
-        void IEnableComponent.OnEnable()
+        void IAwakeListener.Awake()
         {
-            this.variable.OnValueChanged += this.SetValue;
+            this.action(this.variable.Current);
         }
 
-        void IDisableComponent.OnDisable()
+        void IEnableListener.OnEnable()
         {
-            this.variable.OnValueChanged -= this.SetValue;
+            this.variable.OnValueChanged += this.action;
         }
 
-        protected abstract void SetValue(bool isEnable);
+        void IDisableListener.OnDisable()
+        {
+            this.variable.OnValueChanged -= this.action;
+        }
     }
 }

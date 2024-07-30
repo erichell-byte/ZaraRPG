@@ -124,7 +124,7 @@ namespace Game.Gameplay.Player
             }
         }
         
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.pointParticles = new List<RectTransform>();
             this.pointParticlesCache = new List<RectTransform>();

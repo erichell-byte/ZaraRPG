@@ -348,6 +348,11 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 2.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4662234323081328977, guid: 9528fd2047f774c6c8136a2b6a2d7297,
+        type: 3}
+      propertyPath: modules.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5207369320601816344, guid: 9528fd2047f774c6c8136a2b6a2d7297,
         type: 3}
       propertyPath: m_Name
@@ -397,6 +402,12 @@ PrefabInstance:
     - target: {fileID: 7807118548026826713, guid: 9528fd2047f774c6c8136a2b6a2d7297,
         type: 3}
       propertyPath: vendorInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: c002c9aeaedcd415c9d75e8e262af1e7,
+        type: 2}
+    - target: {fileID: 8596146730418331825, guid: 9528fd2047f774c6c8136a2b6a2d7297,
+        type: 3}
+      propertyPath: config
       value: 
       objectReference: {fileID: 11400000, guid: c002c9aeaedcd415c9d75e8e262af1e7,
         type: 2}

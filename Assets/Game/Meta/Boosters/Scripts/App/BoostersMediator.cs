@@ -1,48 +1,42 @@
 using Game.App;
+using JetBrains.Annotations;
 using Services;
 
 namespace Game.Meta
 {
-    public sealed class BoostersMediator :
-        IGameLoadDataListener,
-        IGameSaveDataListener
+    [UsedImplicitly]
+    public sealed class BoostersMediator : BaseMediator<BoostersRepository, BoostersManager>
     {
-        [ServiceInject]
-        private BoostersRepository repository;
-
         [ServiceInject]
         private BoostersAssetSupplier assetSupplier;
 
-        private BoostersManager boostersManager;
-
-        void IGameLoadDataListener.OnLoadData(GameManager gameManager)
+        protected override void OnLoadData(BoostersRepository repository, BoostersManager manager)
         {
-            this.boostersManager = gameManager.GetService<BoostersManager>();
-            if (this.repository.LoadBoosters(out var boostersData))
+            if (repository.LoadBoosters(out var boostersData))
             {
-                this.SetupBoosters(boostersData);
+                this.SetupBoosters(manager, boostersData);
             }
         }
 
-        void IGameSaveDataListener.OnSaveData(GameSaveReason reason)
-        {
-            this.SaveBoosters();
-        }
-
-        private void SetupBoosters(BoosterData[] boostersData)
+        private void SetupBoosters(BoostersManager manager, BoosterData[] boostersData)
         {
             for (int i = 0, count = boostersData.Length; i < count; i++)
             {
                 var data = boostersData[i];
                 var config = this.assetSupplier.GetBooster(data.id);
-                var booster = this.boostersManager.SetupBooster(config);
+                var booster = manager.SetupBooster(config);
                 booster.RemainingTime = data.remainingTime;
             }
         }
 
-        private void SaveBoosters()
+        protected override void OnSaveData(BoostersRepository repository, BoostersManager manager)
         {
-            var boosters = this.boostersManager.GetActiveBoosters();
+            this.SaveBoosters(repository, manager);
+        }
+
+        private void SaveBoosters(BoostersRepository repository, BoostersManager manager)
+        {
+            var boosters = manager.GetActiveBoosters();
             var count = boosters.Length;
             var boostersData = new BoosterData[count];
 
@@ -58,7 +52,7 @@ namespace Game.Meta
                 boostersData[i] = data;
             }
 
-            this.repository.SaveBoosters(boostersData);
+            repository.SaveBoosters(boostersData);
         }
     }
 }

@@ -1,25 +1,24 @@
 using System.Collections.Generic;
 using GameSystem;
-using UIFrames;
-using UIFrames.Unity;
+using Windows;
 
 namespace Game.GameEngine
 {
-    public sealed class PopupSupplier : IFrameSupplier<PopupName, UnityFrame>
+    public sealed class PopupSupplier : IWindowSupplier<PopupName, MonoWindow>
     {
-        private readonly Dictionary<PopupName, UnityFrame> cashedFrames = new();
+        private readonly Dictionary<PopupName, MonoWindow> cashedFrames = new();
         
-        private IGameContext gameContext;
+        private GameContext gameContext;
 
-        private IFrameFactory<PopupName, UnityFrame> factory;
+        private IWindowFactory<PopupName, MonoWindow> factory;
 
-        public void Construct(IGameContext gameContext, IFrameFactory<PopupName, UnityFrame> factory)
+        public void Construct(GameContext gameContext, IWindowFactory<PopupName, MonoWindow> factory)
         {
             this.gameContext = gameContext;
             this.factory = factory;
         }
 
-        public UnityFrame LoadFrame(PopupName key)
+        public MonoWindow LoadWindow(PopupName key)
         {
             if (this.cashedFrames.TryGetValue(key, out var popup))
             {
@@ -27,7 +26,7 @@ namespace Game.GameEngine
             }
             else
             {
-                popup = this.factory.CreateFrame(key);
+                popup = this.factory.CreateWindow(key);
                 this.cashedFrames.Add(key, popup);
             }
             
@@ -40,14 +39,14 @@ namespace Game.GameEngine
             return popup;
         }
 
-        public void UnloadFrame(UnityFrame popup)
+        public void UnloadWindow(MonoWindow window)
         {
-            if (popup.TryGetComponent(out IGameElement gameElement))
+            if (window.TryGetComponent(out IGameElement gameElement))
             {
                 this.gameContext.UnregisterElement(gameElement);
             }
 
-            popup.gameObject.SetActive(false);
+            window.gameObject.SetActive(false);
         }
     }
 }

@@ -28,8 +28,8 @@ namespace Game.GameEngine.AI
 
         private void Awake()
         {
-            this.moveAgent = new Agent_Entity_MoveByPoints(this);
-            this.moveAgent.SetStoppingDistance(this.stoppingDistance.Value);
+            this.moveAgent = new Agent_Entity_MoveByPoints();
+            this.moveAgent.SetStoppingDistance(this.stoppingDistance.Current);
         }
 
         protected override void Run()
@@ -59,7 +59,7 @@ namespace Game.GameEngine.AI
             this.Return(true);
         }
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             this.moveAgent.OnPathFinished -= this.OnMoveFinished;
             this.moveAgent.Stop();

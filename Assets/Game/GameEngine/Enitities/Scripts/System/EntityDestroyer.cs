@@ -8,15 +8,15 @@ namespace Game.GameEngine.Entities
     {
         private static readonly Vector3 OUTSCENE_POSITION = new(10000, 10000, 10000);
 
-        private IGameContext gameContext;
+        private GameContext gameContext;
 
         [GameInject]
-        public void Construct(IGameContext gameContext)
+        public void Construct(GameContext gameContext)
         {
             this.gameContext = gameContext;
         }
 
-        public void Destroy(UnityEntity entity)
+        public void Destroy(MonoEntity entity)
         {
             if (entity.TryGetComponent(out IGameElement gameElement))
             {

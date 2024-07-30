@@ -9,16 +9,19 @@ namespace Game.Gameplay.Hero
     public sealed class UMoveInDirectionState_SurfacePosition : MonoState
     {
         [SerializeField]
-        private UMoveInDirectionEngine moveEngine;
+        private UMoveInDirectionMotor moveEngine;
 
         [SerializeField]
         private UTransformEngine transformEngine;
 
         [SerializeField]
-        private WalkableSurfaceHolder surfaceHolder;
+        private WalkableSurfaceVariable surfaceHolder;
 
         [SerializeField]
         private FloatAdapter speed;
+
+        [SerializeField]
+        private bool surfaceEnabled = true;
 
         private bool isEntered;
 
@@ -42,8 +45,8 @@ namespace Game.Gameplay.Hero
 
         private void MoveInDirection()
         {
-            var velocity = this.moveEngine.Direction * (this.speed.Value * Time.fixedDeltaTime);
-            if (this.surfaceHolder.IsSurfaceExists)
+            var velocity = this.moveEngine.Direction * (this.speed.Current * Time.fixedDeltaTime);
+            if (this.surfaceHolder.IsSurfaceExists && this.surfaceEnabled)
             {
                 this.MoveBySurface(velocity);
             }

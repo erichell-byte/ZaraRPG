@@ -11,7 +11,7 @@ namespace Game.GameEngine
         [SerializeField]
         private bool isEnable = true;
 
-        private readonly List<ITimeShiftListener> listeners = new();
+        private readonly List<ITimeShiftHandler> handlers = new();
 
         [Button]
         [ShowIf("isEnable")]
@@ -23,23 +23,23 @@ namespace Game.GameEngine
                 return;
             }
 
-            for (int i = 0, count = this.listeners.Count; i < count; i++)
+            for (int i = 0, count = this.handlers.Count; i < count; i++)
             {
-                var listener = this.listeners[i];
+                var listener = this.handlers[i];
                 listener.OnTimeShifted(reason, shiftSeconds);
             }
 
             this.OnTimeShifted?.Invoke(reason, shiftSeconds);
         }
 
-        public void AddListener(ITimeShiftListener listener)
+        public void AddHandler(ITimeShiftHandler handler)
         {
-            this.listeners.Add(listener);
+            this.handlers.Add(handler);
         }
 
-        public void RemoveListener(ITimeShiftListener listener)
+        public void RemoveHandler(ITimeShiftHandler handler)
         {
-            this.listeners.Remove(listener);
+            this.handlers.Remove(handler);
         }
     }
 }

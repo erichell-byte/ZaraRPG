@@ -7,11 +7,11 @@ namespace Game.GameEngine.Mechanics
     public sealed class UCondition_IsResourceNotHarvesting : MonoCondition
     {
         [SerializeField]
-        public UHarvestResourceEngine engine;
+        public UHarvestResourceOperator engine;
         
         public override bool IsTrue()
         {
-            return !this.engine.IsHarvesting;
+            return !this.engine.IsActive;
         }
     }
 }

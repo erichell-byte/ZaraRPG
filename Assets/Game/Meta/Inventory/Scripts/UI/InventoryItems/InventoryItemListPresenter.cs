@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using Game.GameEngine;
 using Game.GameEngine.InventorySystem;
 using GameSystem;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class InventoryItemListPresenter : UnityFrame, IGameConstructElement
+    public sealed class InventoryItemListPresenter : MonoWindow, IGameConstructElement
     {
         [SerializeField]
         private InventoryItemView prefab;
@@ -81,7 +81,7 @@ namespace Game.Meta
             this.items.Remove(item);
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.inventoryService = context.GetService<InventoryService>();
             this.popupManager = context.GetService<PopupManager>();

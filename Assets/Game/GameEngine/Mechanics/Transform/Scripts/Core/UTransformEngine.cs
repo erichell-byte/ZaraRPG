@@ -122,7 +122,7 @@ namespace Game.GameEngine.Mechanics
 
         private Vector3 GetWorldPosition()
         {
-            if (!ReferenceEquals(this.sourcePositionTransform, null))
+            if (this.sourcePositionTransform != null)
             {
                 return this.sourcePositionTransform.position;
             }
@@ -132,7 +132,7 @@ namespace Game.GameEngine.Mechanics
 
         private Quaternion GetWorldRotation()
         {
-            if (!ReferenceEquals(this.sourceRotationTransform, null))
+            if (this.sourceRotationTransform != null)
             {
                 return this.sourceRotationTransform.rotation;
             }

@@ -2,7 +2,6 @@ using Entities;
 using Game.GameEngine.Mechanics;
 using Game.Gameplay.Hero;
 using GameSystem;
-using UnityEngine;
 
 namespace Game.Meta
 {
@@ -13,7 +12,7 @@ namespace Game.Meta
         [GameInject]
         private IHeroService heroService;
 
-        public EffectBooster(EffectBoosterConfig config, MonoBehaviour context) : base(config, context)
+        public EffectBooster(EffectBoosterConfig config) : base(config)
         {
             this.config = config;
         }
@@ -21,13 +20,13 @@ namespace Game.Meta
         protected override void OnStart()
         {
             var heroComponent = this.heroService.GetHero().Get<IComponent_Effector>();
-            heroComponent.AddEffect(this.config.effect);
+            heroComponent.Apply(this.config.effect);
         }
 
         protected override void OnStop()
         {
             var heroComponent = this.heroService.GetHero().Get<IComponent_Effector>();
-            heroComponent.RemoveEffect(this.config.effect);
+            heroComponent.Discard(this.config.effect);
         }
     }
 }

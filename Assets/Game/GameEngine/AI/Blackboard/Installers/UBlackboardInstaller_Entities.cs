@@ -12,7 +12,7 @@ namespace Game.Gameplay.AI
         [SerializeField]
         private Variable[] variables;
 
-        protected override void Install(IBlackboard blackboard, IGameContext context)
+        protected override void Install(IBlackboard blackboard, GameContext context)
         {
             for (int i = 0, count = this.variables.Length; i < count; i++)
             {
@@ -29,7 +29,7 @@ namespace Game.Gameplay.AI
             public string key;
 
             [SerializeField]
-            public UnityEntity value;
+            public MonoEntity value;
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Game.GameEngine
         fileName = "Task «Register Entities»",
         menuName = "GameEngine/Construct/New Task «Register Entities»"
     )]
-    public sealed class ConstructTask_RegisterEntities : ConstructTask
+    public sealed class ConstructTask_RegisterEntities : GameContext.ConstructTask
     {
-        public override void Construct(IGameContext gameContext)
+        public override void Construct(GameContext gameContext)
         {
             var entitiesService = gameContext.GetService<EntitiesService>();
 

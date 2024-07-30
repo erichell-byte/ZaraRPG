@@ -18,7 +18,7 @@ namespace Game.GameEngine.Mechanics
 
         public float Speed
         {
-            get { return this.moveSpeed.Value; }
+            get { return this.moveSpeed.Current; }
         }
 
         [SerializeField]

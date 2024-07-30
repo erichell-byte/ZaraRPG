@@ -7,13 +7,13 @@ namespace Game.GameEngine.Mechanics
     public sealed class UAction_StopHarvestResource : MonoAction
     {
         [SerializeField]
-        public UHarvestResourceEngine engine;
+        public UHarvestResourceOperator engine;
     
         public override void Do()
         {
-            if (this.engine.IsHarvesting)
+            if (this.engine.IsActive)
             {
-                this.engine.StopHarvest();
+                this.engine.Stop();
             }
         }
     }

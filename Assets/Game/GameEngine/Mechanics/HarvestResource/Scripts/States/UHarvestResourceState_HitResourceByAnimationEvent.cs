@@ -9,14 +9,14 @@ namespace Game.GameEngine.Mechanics
     public sealed class UHarvestResourceState_HitResourceByAnimationEvent : MonoState
     {
         [SerializeField]
-        public UHarvestResourceEngine harvestEngine;
+        public UHarvestResourceOperator harvestEngine;
 
         [SerializeField]
         public UHarvestResourceAction_HitResource hitAction;
 
         [Space]
         [SerializeField]
-        public UAnimatorSystem animationSystem;
+        public UAnimatorMachine animationSystem;
         
         [Space]
         [SerializeField]
@@ -37,9 +37,9 @@ namespace Game.GameEngine.Mechanics
 
         private void OnAnimationEvent(string message)
         {
-            if (this.animationEvents.Contains(message) && this.harvestEngine.IsHarvesting)
+            if (this.animationEvents.Contains(message) && this.harvestEngine.IsActive)
             {
-                this.hitAction.Do(this.harvestEngine.CurrentOperation);
+                this.hitAction.Do(this.harvestEngine.Current);
             }
         }
     }

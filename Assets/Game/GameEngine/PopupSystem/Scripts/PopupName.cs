@@ -8,6 +8,7 @@ namespace Game.GameEngine
         INVENTORY = 3,
         INVENTORY_ITEM = 4,
         INVENTORY_ITEM_CRAFTING = 5,
-        MARKET = 6
+        MARKET = 6,
+        DIALOGUE = 7
     }
 }

@@ -10,7 +10,7 @@ namespace Game.GameEngine.Mechanics
         public event Action<TakeDamageArgs> OnDamageTaken;
 
         [SerializeField]
-        private UHitPointsEngine hitPointsEngine;
+        private UHitPoints hitPointsEngine;
 
         [SerializeField]
         private DestroyEventReceiver destroyReceiver;
@@ -19,17 +19,17 @@ namespace Game.GameEngine.Mechanics
         [GUIColor(0, 1, 0)]
         public void TakeDamage(TakeDamageArgs damageArgs)
         {
-            if (this.hitPointsEngine.CurrentHitPoints <= 0)
+            if (this.hitPointsEngine.Current <= 0)
             {
                 return;
             }
 
-            this.hitPointsEngine.CurrentHitPoints -= damageArgs.damage;
+            this.hitPointsEngine.Current -= damageArgs.damage;
             this.OnDamageTaken?.Invoke(damageArgs);
 
-            if (this.hitPointsEngine.CurrentHitPoints <= 0)
+            if (this.hitPointsEngine.Current <= 0)
             {
-                var destroyEvent = CommonUtils.ComposeDestroyEvent(damageArgs);
+                var destroyEvent = MechanicsUtils.ConvertToDestroyEvent(damageArgs);
                 this.destroyReceiver.Call(destroyEvent);
             }
         }

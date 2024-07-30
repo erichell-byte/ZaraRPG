@@ -42,7 +42,7 @@ namespace Game.GameEngine.AI
 
         private void TryStartCombat(IEntity target)
         {
-            var operation = new MeleeCombatOperation(target);
+            var operation = new CombatOperation(target);
             if (this.unitComponent.CanStartCombat(operation))
             {
                 this.unitComponent.OnCombatStopped += this.OnCombatFinished;
@@ -54,7 +54,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        private void OnCombatFinished(MeleeCombatOperation operation)
+        private void OnCombatFinished(CombatOperation operation)
         {
             if (this.unitComponent != null)
             {

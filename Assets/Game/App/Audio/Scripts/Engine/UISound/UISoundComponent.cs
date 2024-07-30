@@ -3,41 +3,51 @@ using UnityEngine;
 namespace Game
 {
     [AddComponentMenu("Audio/UISound/UI Sound Component")]
-    public sealed class UISoundComponent : MonoBehaviour
+    public class UISoundComponent : MonoBehaviour
     {
-        public void PlayClick()
+        public void Play(UISoundType soundType)
+        {
+            UISoundManager.PlaySound(soundType);
+        }
+
+        public void Play(AudioClip sound)
+        {
+            UISoundManager.PlaySound(sound);            
+        }
+    
+        public void Click()
         {
             UISoundManager.PlaySound(UISoundType.CLICK);
         }
 
-        public void PlayError()
+        public void Error()
         {
             UISoundManager.PlaySound(UISoundType.ERROR);
         }
 
-        public void PlayAccept()
+        public void Accept()
         {
             UISoundManager.PlaySound(UISoundType.ACCEPT);
         }
 
-        public void PlayClose()
+        public void Close()
         {
             UISoundManager.PlaySound(UISoundType.CLOSE);
         }
 
-        public void PlayBuy()
+        public void Buy()
         {
             UISoundManager.PlaySound(UISoundType.BUY);
         }
 
-        public void PlayShowPopup()
-        {
-            UISoundManager.PlaySound(UISoundType.SHOW_POPUP);
-        }
-
-        public void PlayIncome()
+        public void Income()
         {
             UISoundManager.PlaySound(UISoundType.INCOME);
+        }
+
+        public void ShowPopup()
+        {
+            UISoundManager.PlaySound(UISoundType.SHOW_POPUP);
         }
     }
 }

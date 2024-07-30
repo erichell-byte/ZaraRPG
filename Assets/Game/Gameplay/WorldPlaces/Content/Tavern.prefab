@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a97dc111b6944ee9d5d8bb83e65d193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtStart: 0
 --- !u!222 &404422480
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb8ed1ae760440fb9e02800d341ed8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeType: 1
+  worldPlace: {fileID: 8211420758521257927}
 --- !u!1 &7764415410861422137
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7764415411135960481}
+  - component: {fileID: 8211420758521257927}
   m_Layer: 0
   m_Name: Tavern
   m_TagString: Untagged
@@ -239,6 +241,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 25, z: 0}
+--- !u!114 &8211420758521257927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764415411135960482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd7947bef0b4a1f8d54429c679b2fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  visitPoint: {fileID: 7764415410466687004}
 --- !u!1 &7764415411943954581
 GameObject:
   m_ObjectHideFlags: 0

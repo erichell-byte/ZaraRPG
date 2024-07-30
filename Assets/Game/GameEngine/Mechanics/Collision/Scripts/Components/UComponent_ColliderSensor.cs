@@ -14,7 +14,7 @@ namespace Game.GameEngine.Mechanics
         }
 
         [SerializeField]
-        private CollidersSensorBase sensor;
+        private ColliderDetection sensor;
         
         public void GetCollidersNonAlloc(Collider[] buffer, out int size)
         {

@@ -1,9 +1,8 @@
-using UnityEngine;
+using Elementary;
 
 namespace Game.GameEngine.Mechanics
 {
-    public abstract class UHarvestResourceAction : MonoBehaviour, IHarvestResourceAction
+    public abstract class UHarvestResourceAction : MonoAction<HarvestResourceOperation>
     {
-        public abstract void Do(HarvestResourceOperation operation);
     }
 }

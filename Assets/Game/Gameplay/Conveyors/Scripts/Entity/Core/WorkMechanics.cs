@@ -1,13 +1,13 @@
 using Elementary;
 using Game.GameEngine.Mechanics;
-using MonoOptimization;
+using Declarative;
 
 namespace Game.Gameplay.Conveyors
 {
     public sealed class WorkMechanics :
-        IEnableComponent,
-        IDisableComponent,
-        IFixedUpdateComponent
+        IEnableListener,
+        IDisableListener,
+        IFixedUpdateListener
     {
         private IVariable<bool> isEnable;
 
@@ -30,19 +30,19 @@ namespace Game.Gameplay.Conveyors
             this.workTimer = workTimer;
         }
 
-        void IEnableComponent.OnEnable()
+        void IEnableListener.OnEnable()
         {
             this.workTimer.OnFinished += this.OnWorkFinished;
         }
 
-        void IDisableComponent.OnDisable()
+        void IDisableListener.OnDisable()
         {
             this.workTimer.OnFinished -= this.OnWorkFinished;
         }
 
-        void IFixedUpdateComponent.FixedUpdate(float deltaTime)
+        void IFixedUpdateListener.FixedUpdate(float deltaTime)
         {
-            if (!this.isEnable.Value)
+            if (!this.isEnable.Current)
             {
                 return;
             }
@@ -60,7 +60,7 @@ namespace Game.Gameplay.Conveyors
                 return false;
             }
 
-            if (this.loadStorage.Value == 0)
+            if (this.loadStorage.Current == 0)
             {
                 return false;
             }
@@ -75,14 +75,14 @@ namespace Game.Gameplay.Conveyors
 
         private void StartWork()
         {
-            this.loadStorage.Value--;
+            this.loadStorage.Current--;
             this.workTimer.ResetTime();
             this.workTimer.Play();
         }
 
         private void OnWorkFinished()
         {
-            this.unloadStorage.Value++;
+            this.unloadStorage.Current++;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Game.GameEngine.Mechanics
     public sealed class LevelVisualAdapter : MonoBehaviour
     {
         [SerializeField]
-        private ULevelEngine levelEngine;
+        private ULevel levelEngine;
 
         [SerializeField]
         private Mode mode = Mode.EQUALS;

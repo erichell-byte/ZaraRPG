@@ -13,11 +13,47 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 818f423de41e14da7b5d77914d5d1f56,
         type: 2}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: 818f423de41e14da7b5d77914d5d1f56,
+        type: 2}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: visual
+      value: 532598600402207097
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: core.activeVariable.value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: core.respawnTimer.duration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: managedReferences[532598600402207097]
+      value: Assets Game.Gameplay.ResourceObjects.ResourceModel/TreeVisual
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: managedReferences[532598600402207097].animator
+      value: 
+      objectReference: {fileID: 7378525009417191010}
+    - target: {fileID: 1416669472193959320, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
+        type: 3}
+      propertyPath: managedReferences[532598600402207097].visualObject
+      value: 
+      objectReference: {fileID: 8597556704288089895}
     - target: {fileID: 4496880677589360588, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
         type: 3}
       propertyPath: modules.Array.data[0]
       value: 
-      objectReference: {fileID: 5639347232872235406}
+      objectReference: {fileID: 0}
     - target: {fileID: 5158993064649653649, guid: 1f3a3d8078ec54273b418a7a11fc1be4,
         type: 3}
       propertyPath: info
@@ -145,20 +181,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4142435980766406797}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5639347232872235406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8597556704288089895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5284b52455634547868f9bda673e402c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rootGameObject: {fileID: 882319400685846346}
-  animator: {fileID: 7378525009417191010}
 --- !u!1001 &4142435981489221158
 PrefabInstance:
   m_ObjectHideFlags: 0

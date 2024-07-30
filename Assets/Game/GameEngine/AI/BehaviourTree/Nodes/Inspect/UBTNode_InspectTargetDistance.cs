@@ -54,7 +54,7 @@ namespace Game.GameEngine.AI
 
         private IEnumerator HandleDistance()
         {
-            var period = new WaitForSeconds(this.observePeriod.Value);
+            var period = new WaitForSeconds(this.observePeriod.Current);
             while (true)
             {
                 yield return period;
@@ -72,7 +72,7 @@ namespace Game.GameEngine.AI
             var targetPosition = this.enemyComponent.Position;
 
             var distanceVector = targetPosition - unitPosition;
-            return distanceVector.sqrMagnitude <= Mathf.Pow(this.visibleDistance.Value, 2);
+            return distanceVector.sqrMagnitude <= Mathf.Pow(this.visibleDistance.Current, 2);
         }
     }
 }

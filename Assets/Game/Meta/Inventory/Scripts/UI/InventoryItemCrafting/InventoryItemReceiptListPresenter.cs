@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Game.GameEngine.InventorySystem;
 using GameSystem;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class InventoryItemReceiptListPresenter : UnityFrame, IGameConstructElement
+    public sealed class InventoryItemReceiptListPresenter : MonoWindow, IGameConstructElement
     {
         [SerializeField]
         private InventoryItemReceiptCatalog receiptCatalog;
@@ -41,7 +41,7 @@ namespace Game.Meta
             }
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.inventory = context.GetService<InventoryService>().GetInventory();
             this.craftManager = context.GetService<InventoryItemCrafter>();

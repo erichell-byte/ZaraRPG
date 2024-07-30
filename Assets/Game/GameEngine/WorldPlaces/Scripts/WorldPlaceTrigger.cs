@@ -6,10 +6,10 @@ namespace Game.GameEngine
     {
         public WorldPlaceType PlaceType
         {
-            get { return this.placeType; }
+            get { return this.worldPlace.Type; }
         }
 
         [SerializeField]
-        private WorldPlaceType placeType;
+        private WorldPlaceObject worldPlace;
     }
 }

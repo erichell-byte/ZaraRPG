@@ -4,7 +4,7 @@ using Elementary;
 namespace Game.GameEngine.Mechanics
 {
     public sealed class Component_Destroy_Emitter : 
-        IComponent_Destoy,
+        IComponent_Destroy,
         IComponent_OnDestroyed
     {
         public event Action OnDestroyed

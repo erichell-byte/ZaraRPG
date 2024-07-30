@@ -1,20 +1,20 @@
 using Elementary;
-using MonoOptimization;
+using Declarative;
 
 namespace Game.GameEngine.Mechanics
 {
     public abstract class DestroyMechanics :
-        IEnableComponent,
-        IDisableComponent
+        IEnableListener,
+        IDisableListener
     {
         public IEmitter<DestroyArgs> emitter;
 
-        void IEnableComponent.OnEnable()
+        void IEnableListener.OnEnable()
         {
             this.emitter.OnEvent += this.Destroy;
         }
 
-        void IDisableComponent.OnDisable()
+        void IDisableListener.OnDisable()
         {
             this.emitter.OnEvent -= this.Destroy;
         }

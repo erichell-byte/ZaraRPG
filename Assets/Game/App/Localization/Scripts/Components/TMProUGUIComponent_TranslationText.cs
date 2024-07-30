@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.Localization
 {
     [Serializable]
-    public sealed class TMProUGUIComponent_TranslationText : IComponent
+    public sealed class TMProUGUIComponent_TranslationText : ILocalizationComponent
     {
         [SerializeField]
         private TextMeshProUGUI text;

@@ -504,7 +504,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8834446999983404775}
         m_TargetAssemblyTypeName: Game.UISoundComponent, Assembly-CSharp
-        m_MethodName: PlayIncome
+        m_MethodName: Income
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -594,7 +594,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: children
       Entry: 7
-      Data: 0|LocalizationModule.IComponent[], Localization
+      Data: 0|LocalizationModule.ILocalizationComponent[], Localization
     - Name: 
       Entry: 12
       Data: 3

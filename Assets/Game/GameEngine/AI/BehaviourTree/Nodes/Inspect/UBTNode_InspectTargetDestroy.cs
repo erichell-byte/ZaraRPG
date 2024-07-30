@@ -29,7 +29,7 @@ namespace Game.GameEngine.AI
             this.targetComponent.OnDestroyed += this.OnDestroyed;
         }
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             if (this.targetComponent != null)
             {

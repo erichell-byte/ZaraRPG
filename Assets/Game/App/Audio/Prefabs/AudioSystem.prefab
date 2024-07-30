@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 237866920505246861}
   - {fileID: 8539559717766048953}
@@ -43,7 +44,7 @@ PrefabInstance:
     - target: {fileID: 4866010545373467148, guid: 600bee375246f4d9d842a43505057fcd,
         type: 3}
       propertyPath: m_Name
-      value: Game
+      value: Scene
       objectReference: {fileID: 0}
     - target: {fileID: 4866010545373467151, guid: 600bee375246f4d9d842a43505057fcd,
         type: 3}

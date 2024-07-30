@@ -10,12 +10,12 @@ namespace Game.GameEngine
         fileName = "Task «Setup Conveyors»",
         menuName = "GameEngine/Construct/New Task «Setup Conveyors»"
     )]
-    public sealed class ConstructTask_SetupConveyors : ConstructTask
+    public sealed class ConstructTask_SetupConveyors : GameContext.ConstructTask
     {
         [SerializeField]
         private ScriptableEntityCondition conveyorCondition;
 
-        public override void Construct(IGameContext gameContext)
+        public override void Construct(GameContext gameContext)
         {
             if (gameContext.TryGetService(out ConveyorsService conveyorsService))
             {

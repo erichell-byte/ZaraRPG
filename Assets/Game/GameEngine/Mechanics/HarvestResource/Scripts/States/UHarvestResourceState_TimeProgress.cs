@@ -9,7 +9,7 @@ namespace Game.GameEngine.Mechanics
     public sealed class UHarvestResourceState_TimeProgress : MonoStateCoroutine
     {
         [SerializeField]
-        private UHarvestResourceEngine engine;
+        private UHarvestResourceOperator engine;
         
         [Space]
         [SerializeField]
@@ -21,13 +21,13 @@ namespace Game.GameEngine.Mechanics
 
         public override void Enter()
         {
-            this.currentTime = this.engine.CurrentOperation.progress * this.workTime.Value;
+            this.currentTime = this.engine.Current.progress * this.workTime.Current;
             base.Enter();
         }
 
         protected override IEnumerator Do()
         {
-            while (this.currentTime < this.workTime.Value)
+            while (this.currentTime < this.workTime.Current)
             {
                 yield return null;
                 this.UpdateProgress(Time.deltaTime);
@@ -39,16 +39,16 @@ namespace Game.GameEngine.Mechanics
         private void UpdateProgress(float deltaTime)
         {
             this.currentTime += deltaTime;
-            var progress = this.currentTime / this.workTime.Value;
-            this.engine.CurrentOperation.progress = progress;
+            var progress = this.currentTime / this.workTime.Current;
+            this.engine.Current.progress = progress;
         }
 
         private void Complete()
         {
-            var operation = this.engine.CurrentOperation;
+            var operation = this.engine.Current;
             operation.isCompleted = true;
             operation.progress = 1.0f;
-            this.engine.StopHarvest();
+            this.engine.Stop();
         }
     }
 }

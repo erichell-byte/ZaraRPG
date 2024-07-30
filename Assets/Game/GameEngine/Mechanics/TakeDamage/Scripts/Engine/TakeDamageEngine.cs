@@ -6,11 +6,11 @@ namespace Game.GameEngine.Mechanics
     [Serializable]
     public sealed class TakeDamageEngine : Emitter<TakeDamageArgs>
     {
-        private IHitPointsEngine hitPointsEngine;
+        private IHitPoints hitPointsEngine;
 
         private IEmitter<DestroyArgs> destroyReceiver;
 
-        public void Construct(IHitPointsEngine hitPointsEngine, IEmitter<DestroyArgs> destroyReceiver)
+        public void Construct(IHitPoints hitPointsEngine, IEmitter<DestroyArgs> destroyReceiver)
         {
             this.hitPointsEngine = hitPointsEngine;
             this.destroyReceiver = destroyReceiver;
@@ -18,17 +18,22 @@ namespace Game.GameEngine.Mechanics
         
         public override void Call(TakeDamageArgs damageArgs)
         {
-            if (this.hitPointsEngine.CurrentHitPoints <= 0)
+            if (damageArgs.damage <= 0)
+            {
+                return;
+            }
+        
+            if (this.hitPointsEngine.Current <= 0)
             {
                 return;
             }
 
-            this.hitPointsEngine.CurrentHitPoints -= damageArgs.damage;
+            this.hitPointsEngine.Current -= damageArgs.damage;
             base.Call(damageArgs);
 
-            if (this.hitPointsEngine.CurrentHitPoints <= 0)
+            if (this.hitPointsEngine.Current <= 0)
             {
-                var destroyEvent = CommonUtils.ComposeDestroyEvent(damageArgs);
+                var destroyEvent = MechanicsUtils.ConvertToDestroyEvent(damageArgs);
                 this.destroyReceiver.Call(destroyEvent);
             }
         }

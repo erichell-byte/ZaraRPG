@@ -12,9 +12,9 @@ namespace Game.Tutorial.App
 
         private const string STEP_CONFIG_PATH = "TutorialStepConfig";
 
-        public TutorialStepConfig LoadStepConfig()
+        public TutorialList LoadStepConfig()
         {
-            return Resources.Load<TutorialStepConfig>(STEP_CONFIG_PATH);
+            return Resources.Load<TutorialList>(STEP_CONFIG_PATH);
         }
 
         public Task<GameObject> LoadTutorialEngine()

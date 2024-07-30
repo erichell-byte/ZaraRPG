@@ -98,8 +98,14 @@ namespace Game.GameEngine.PathSystem
                 return this.graph.GetNeighbours(point);
             }
 
-            protected override float GetHeuristicDistance(Point point1, Point point2)
+            protected override float GetDistance(Point point1, Point point2)
             {
+                return point1.GetDistanceTo(point2);
+            }
+
+            protected override float GetHeuristic(Point point1, Point point2)
+            {
+                //Manhattan distance:
                 return point1.GetDistanceTo(point2);
             }
         }

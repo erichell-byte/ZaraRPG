@@ -40,7 +40,7 @@ namespace Game.GameEngine.Mechanics
         }
 
         [SerializeField]
-        private ULevelEngine levelEngine;
+        private ULevel levelEngine;
 
         public void SetupLevel(int level)
         {

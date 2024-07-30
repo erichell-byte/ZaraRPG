@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class MissionsAssetSupplier : IAppConfigsLoader
+    public sealed class MissionsAssetSupplier : IConfigLoader
     {
         private MissionCatalog catalog;
 
@@ -22,7 +22,7 @@ namespace Game.Meta
             return this.catalog.GetAllMissions();
         }
 
-        void IAppConfigsLoader.LoadConfigs()
+        void IConfigLoader.LoadConfigs()
         {
             this.catalog = Resources.Load<MissionCatalog>(MissionExtensions.MISSION_CATALOG_RESOURCE_PATH);
         }

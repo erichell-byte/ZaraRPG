@@ -8,7 +8,7 @@ namespace Game.GameEngine.Mechanics
     public sealed class UAction_DealMeleeDamage : MonoAction
     {
         [SerializeField]
-        public UMeleeCombatEngine combatEngine;
+        public UCombatOperator combatOperator;
 
         [SerializeField]
         public Object attacker;
@@ -21,12 +21,12 @@ namespace Game.GameEngine.Mechanics
         [GUIColor(0, 1, 0)]
         public override void Do()
         {
-            if (!this.combatEngine.IsCombat)
+            if (!this.combatOperator.IsActive)
             {
                 return;
             }
         
-            var target = this.combatEngine.CurrentOperation.targetEntity;
+            var target = this.combatOperator.Current.targetEntity;
             var aliveComponent = target.Get<IComponent_IsAlive>();
             if (!aliveComponent.IsAlive)
             {
@@ -35,7 +35,7 @@ namespace Game.GameEngine.Mechanics
 
             var takeDamageComponent = target.Get<IComponent_TakeDamage>();
             var damageEvent = new TakeDamageArgs(
-                this.damage.Value,
+                this.damage.Current,
                 TakeDamageReason.MELEE,
                 this.attacker
             );

@@ -6,15 +6,15 @@ namespace Game.GameEngine.Entities
 {
     public sealed class EntitySpawner
     {
-        private IGameContext gameContext;
+        private GameContext gameContext;
 
         [GameInject]
-        public void Construct(IGameContext context)
+        public void Construct(GameContext context)
         {
             this.gameContext = context;
         }
 
-        public UnityEntity Spawn(UnityEntity prefab, Transform parent, Vector3 position, Quaternion rotation)
+        public MonoEntity Spawn(MonoEntity prefab, Transform parent, Vector3 position, Quaternion rotation)
         {
             var entity = GameObject.Instantiate(prefab, position, rotation, parent);
             if (entity.TryGetComponent(out IGameElement gameElement))

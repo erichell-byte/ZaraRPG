@@ -1,18 +1,18 @@
 using Elementary;
-using MonoOptimization;
+using Declarative;
 
 namespace Game.GameEngine.Mechanics
 {
-    public abstract class TakeDamageMechanics : IEnableComponent, IDisableComponent
+    public abstract class TakeDamageMechanics : IEnableListener, IDisableListener
     {
         public IEmitter<TakeDamageArgs> emitter;
 
-        void IEnableComponent.OnEnable()
+        void IEnableListener.OnEnable()
         {
             this.emitter.OnEvent += this.OnDamageTaken;
         }
 
-        void IDisableComponent.OnDisable()
+        void IDisableListener.OnDisable()
         {
             this.emitter.OnEvent -= this.OnDamageTaken;
         }

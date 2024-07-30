@@ -28,8 +28,8 @@ namespace Game.GameEngine.AI
 
         private void Awake()
         {
-            this.moveAgent = new Agent_Entity_MoveToPosition(coroutineDispatcher: this);
-            this.moveAgent.SetStoppingDistance(this.stoppingDistance.Value);
+            this.moveAgent = new Agent_Entity_MoveToPosition();
+            this.moveAgent.SetStoppingDistance(this.stoppingDistance.Current);
         }
 
         protected override void Run()
@@ -60,7 +60,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             this.moveAgent.OnTargetReached -= this.OnTargetReached;
             this.moveAgent.Stop();

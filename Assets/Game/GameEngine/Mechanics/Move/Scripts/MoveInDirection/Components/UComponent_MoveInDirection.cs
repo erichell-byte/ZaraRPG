@@ -29,7 +29,7 @@ namespace Game.GameEngine.Mechanics
         }
 
         [SerializeField]
-        private UMoveInDirectionEngine engine;
+        private UMoveInDirectionMotor engine;
 
         public bool CanMove(Vector3 direction)
         {
@@ -38,7 +38,7 @@ namespace Game.GameEngine.Mechanics
 
         public void Move(Vector3 direction)
         {
-            this.engine.Move(direction);
+            this.engine.RequestMove(direction);
         }
     }
 }

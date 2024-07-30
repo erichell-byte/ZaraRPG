@@ -1,4 +1,4 @@
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +11,7 @@ namespace Game.UI
         private ScrollRect rect;
         
         [SerializeField]
-        private UnityFrameAnimator animator;
+        private WindowAnimator animator;
 
         private void OnEnable()
         {

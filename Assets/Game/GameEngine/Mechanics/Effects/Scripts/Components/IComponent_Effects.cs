@@ -1,3 +1,5 @@
+using System;
+
 namespace Game.GameEngine.Mechanics
 {
     public interface IComponent_GetEffect
@@ -7,8 +9,12 @@ namespace Game.GameEngine.Mechanics
 
     public interface IComponent_Effector
     {
-        void AddEffect(IEffect effect);
+        event Action<IEffect> OnApplied;
+
+        event Action<IEffect> OnDiscarded;
         
-        void RemoveEffect(IEffect effect);
+        void Apply(IEffect effect);
+        
+        void Discard(IEffect effect);
     }
 }

@@ -64,8 +64,7 @@ namespace Game.Meta
 
         private void OnItemClicked()
         {
-            var presenter = new InventoryItemPopupPresenter(this.item);
-            presenter.Construct(this.consumeManager);
+            var presenter = new InventoryItemPresentationModel(this.item, this.consumeManager);
             this.popupManager.ShowPopup(PopupName.INVENTORY_ITEM, presenter);
         }
     }

@@ -10,7 +10,7 @@ namespace Game.GameEngine.Animation
     public sealed class UAnimatorState_SetSpeedMultiplier : MonoState, IAnimatorMultiplier
     {
         [SerializeField]
-        private UAnimatorSystem system;
+        private UAnimatorMachine system;
 
         [Space]
         [LabelText("Multiplier Source")]
@@ -45,12 +45,12 @@ namespace Game.GameEngine.Animation
         {
             if (this.mode == Mode.MONO_BEHAVIOUR)
             {
-                return this.monoFloat.Value;
+                return this.monoFloat.Current;
             }
 
             if (this.mode == Mode.SCRIPTABLE_OBJECT)
             {
-                return this.scriptableFloat.Value;
+                return this.scriptableFloat.Current;
             }
 
             if (this.mode == Mode.CUSTOM)

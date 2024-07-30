@@ -15,7 +15,7 @@ namespace Game.Meta
 
         private BoostersManager boostersManager;
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.boostersManager = context.GetService<BoostersManager>();
         }

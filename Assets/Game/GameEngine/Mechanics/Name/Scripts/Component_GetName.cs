@@ -6,7 +6,7 @@ namespace Game.GameEngine.Mechanics
     {
         public string Name
         {
-            get { return this.name.Value; }
+            get { return this.name.Current; }
         }
 
         private readonly IValue<string> name;
@@ -14,6 +14,11 @@ namespace Game.GameEngine.Mechanics
         public Component_GetName(IValue<string> name)
         {
             this.name = name;
+        }
+
+        public Component_GetName(string name)
+        {
+            this.name = new Value<string>(name);
         }
     }
 }

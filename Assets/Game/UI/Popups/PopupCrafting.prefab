@@ -295,8 +295,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4221848075445636991}
   - component: {fileID: 2751262777931080757}
-  - component: {fileID: 314494665398140414}
   - component: {fileID: 8858035366710267425}
+  - component: {fileID: 314494665398140414}
   - component: {fileID: 7512968044416811368}
   - component: {fileID: 708262258570553476}
   m_Layer: 5
@@ -356,7 +356,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 708262258570553476}
         m_TargetAssemblyTypeName: Game.UISoundComponent, Assembly-CSharp
-        m_MethodName: PlayShowPopup
+        m_MethodName: ShowPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -393,26 +393,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!95 &314494665398140414
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4221848075445636984}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7335f55dd34874985bf8925ac6037988, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &8858035366710267425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +414,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2751262777931080757}
         m_TargetAssemblyTypeName: Popups.Unity.MonoPopup, Assembly-CSharp
-        m_MethodName: Close
+        m_MethodName: NotifyAboutClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -444,6 +424,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &314494665398140414
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4221848075445636984}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7335f55dd34874985bf8925ac6037988, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7512968044416811368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,13 +918,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: children
       Entry: 7
-      Data: 0|LocalizationModule.IComponent[], Localization
+      Data: 0|LocalizationModule.ILocalizationComponent[], Localization
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Game.Localization.TMProUGUIComponent_TranslationText, Assembly-CSharp
+      Data: 1|Game.Localization.TMProUGUIComponent_TranslationText, Assets
     - Name: text
       Entry: 10
       Data: 0

@@ -21,7 +21,7 @@ namespace Game.Gameplay.Player
 
         private MoneyStorage storage;
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.storage = context.GetService<MoneyStorage>();
         }

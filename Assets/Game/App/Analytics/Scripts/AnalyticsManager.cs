@@ -6,18 +6,9 @@ namespace Game.App
 {
     public sealed class AnalyticsManager : MonoBehaviour
     {
-        private static AnalyticsManager instance; //Singleton
+        private static AnalyticsManager instance;
 
         private IAnalyticsLogger logger;
-
-#if UNITY_EDITOR
-        [SerializeField]
-        private bool debugLog;
-
-        [ShowIf("debugLog")]
-        [SerializeField]
-        private Color debugColor;
-#endif
 
         public static void LogEvent(string eventKey, params AnalyticsParameter[] parameters)
         {
@@ -65,6 +56,13 @@ namespace Game.App
         }
 
 #if UNITY_EDITOR
+        [SerializeField]
+        private bool debugLog;
+
+        [ShowIf("debugLog")]
+        [SerializeField]
+        private Color debugColor;
+
         private void OnValidate()
         {
             this.logger = new DebugAnalyticsLogger(this.debugColor);

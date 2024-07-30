@@ -59,7 +59,7 @@ namespace Game.Meta
             this.heroService.GetHero().Get<IComponent_MeleeCombat>().OnCombatStopped -= this.OnCombatFinished;                        
         }
 
-        private void OnCombatFinished(MeleeCombatOperation operation)
+        private void OnCombatFinished(CombatOperation operation)
         {
             if (operation.targetDestroyed)
             {

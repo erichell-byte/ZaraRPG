@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb8ed1ae760440fb9e02800d341ed8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeType: 3
+  worldPlace: {fileID: 7305905999748538221}
 --- !u!1 &4586685354591578699
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4586685354888826239}
+  - component: {fileID: 7305905999748538221}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -237,6 +238,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 25, z: 0}
+--- !u!114 &7305905999748538221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4586685354888826236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd7947bef0b4a1f8d54429c679b2fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  visitPoint: {fileID: 4586685353949057218}
 --- !u!1 &6081988884691658640
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a97dc111b6944ee9d5d8bb83e65d193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtStart: 0
 --- !u!222 &6081988884691658638
 CanvasRenderer:
   m_ObjectHideFlags: 0

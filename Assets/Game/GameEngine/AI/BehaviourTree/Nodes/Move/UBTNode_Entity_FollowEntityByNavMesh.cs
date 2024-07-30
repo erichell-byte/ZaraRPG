@@ -32,10 +32,10 @@ namespace Game.GameEngine.AI
 
         private void Awake()
         {
-            this.followAgent = new Agent_Entity_FollowEntityByNavMesh(coroutineDispatcher: this);
+            this.followAgent = new Agent_Entity_FollowEntityByNavMesh();
             this.followAgent.SetNavMeshAreas(NavMesh.AllAreas);
-            this.followAgent.SetStoppingDistance(this.stoppingDistance.Value);
-            this.followAgent.SetMinPointDistance(this.minPointDistance.Value);
+            this.followAgent.SetStoppingDistance(this.stoppingDistance.Current);
+            this.followAgent.SetMinPointDistance(this.minPointDistance.Current);
             this.followAgent.SetCalculatePathPeriod(new WaitForFixedUpdate());
             this.followAgent.SetCheckTargetReachedPeriod(null);
         }
@@ -68,7 +68,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             this.followAgent.Stop();
             this.followAgent.OnTargetReached -= this.OnTargetReached;

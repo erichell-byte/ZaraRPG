@@ -7,7 +7,7 @@ namespace Game.GameEngine.Mechanics
     public sealed class UCondition_IsDirectionMoving : MonoCondition
     {
         [SerializeField]
-        public UMoveInDirectionEngine engine;
+        public UMoveInDirectionMotor engine;
 
         public override bool IsTrue()
         {

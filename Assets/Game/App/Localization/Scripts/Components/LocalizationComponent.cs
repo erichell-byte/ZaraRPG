@@ -10,7 +10,7 @@ namespace Game.Localization
     public class LocalizationComponent : SerializedMonoBehaviour
     {
         [SerializeField]
-        private IComponent[] children = new IComponent[0];
+        private ILocalizationComponent[] children = new ILocalizationComponent[0];
 
         protected virtual void OnEnable()
         {

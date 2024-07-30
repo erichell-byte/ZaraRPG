@@ -9,7 +9,7 @@ namespace Game.GameEngine.Animation
     public sealed class UAnimatorState_ChangeState : MonoState
     {
         [SerializeField]
-        private UAnimatorSystem system;
+        private UAnimatorMachine system;
 
         [SerializeField]
         private IntAdapter enterId;
@@ -25,14 +25,14 @@ namespace Game.GameEngine.Animation
         
         public override void Enter()
         {
-            this.system.ChangeState(this.enterId.Value);
+            this.system.ChangeState(this.enterId.Current);
         }
 
         public override void Exit()
         {
             if (this.hasExitAnimation)
             {
-                this.system.ChangeState(this.exitId.Value);
+                this.system.ChangeState(this.exitId.Current);
             }
         }
     }

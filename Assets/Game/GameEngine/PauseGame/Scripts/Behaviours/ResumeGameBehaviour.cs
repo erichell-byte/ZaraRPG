@@ -5,17 +5,17 @@ namespace Game.GameEngine
 {
     public sealed class ResumeGameBehaviour : MonoBehaviour, IGameAttachElement
     {
-        private IGameContext gameContext;
+        private GameContext gameContext;
 
         public void ResumeGame()
         {
-            if (this.gameContext.State == GameState.PAUSE)
+            if (this.gameContext.CurrentState == GameContext.State.PAUSE)
             {
                 this.gameContext.ResumeGame();
             }
         }
 
-        void IGameAttachElement.AttachGame(IGameContext context)
+        void IGameAttachElement.AttachGame(GameContext context)
         {
             this.gameContext = context;
         }

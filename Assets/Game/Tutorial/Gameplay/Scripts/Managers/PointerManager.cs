@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Tutorial.Gameplay
@@ -10,6 +11,12 @@ namespace Game.Tutorial.Gameplay
         private void Awake()
         {
             this.pointer.SetActive(false);
+        }
+
+        [Button]
+        public void ShowPointer(Transform targetPoint)
+        {
+            this.ShowPointer(targetPoint.position, targetPoint.rotation);
         }
 
         public void ShowPointer(Vector3 position, Quaternion rotation)

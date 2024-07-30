@@ -7,9 +7,9 @@ namespace Game.GameEngine.Products
 {
     public class ProductBuyer
     {
-        public event Action<Product> OnStarted; 
+        public event Action<Product> OnBuyStarted; 
 
-        public event Action<Product> OnCompleted;
+        public event Action<Product> OnBuyCompleted;
 
         private readonly List<IProductBuyCondition> conditions;
 
@@ -52,7 +52,7 @@ namespace Game.GameEngine.Products
                 return;
             }
             
-            this.OnStarted?.Invoke(product);
+            this.OnBuyStarted?.Invoke(product);
             
             //Process buy:
             for (int i = 0, count = this.processors.Count; i < count; i++)
@@ -68,7 +68,7 @@ namespace Game.GameEngine.Products
                 completor.CompleteBuy(product);
             }
             
-            this.OnCompleted?.Invoke(product);
+            this.OnBuyCompleted?.Invoke(product);
         }
 
         public void AddCondition(IProductBuyCondition condition)

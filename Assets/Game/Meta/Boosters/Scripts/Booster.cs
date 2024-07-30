@@ -63,10 +63,10 @@ namespace Game.Meta
 
         private readonly Countdown timer;
 
-        public Booster(BoosterConfig config, MonoBehaviour context)
+        public Booster(BoosterConfig config)
         {
             this.config = config;
-            this.timer = new Countdown(context, config.duration);
+            this.timer = new Countdown(config.duration);
         }
 
         public void Start()

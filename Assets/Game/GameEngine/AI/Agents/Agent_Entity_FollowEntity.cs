@@ -19,13 +19,13 @@ namespace Game.GameEngine.AI
             get { return this.moveAgent.IsTargetReached; }
         }
 
-        private readonly Agent_Entity_MoveToPosition moveAgent;
+        private readonly Agent_Entity_MoveToPosition moveAgent = new();
 
         private IComponent_GetPosition targetComponent;
 
-        public Agent_Entity_FollowEntity(MonoBehaviour coroutineDispatcher) : base(coroutineDispatcher)
+        public Agent_Entity_FollowEntity()
         {
-            this.moveAgent = new Agent_Entity_MoveToPosition(coroutineDispatcher);
+            this.SetFramePeriod(new WaitForFixedUpdate());
         }
 
         public void SetStoppingDistance(float stoppingDistance)

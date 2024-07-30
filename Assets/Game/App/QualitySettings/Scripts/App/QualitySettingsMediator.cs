@@ -5,7 +5,7 @@ namespace Game.App
     public sealed class QualitySettingsMediator :
         IAppInitListener,
         IAppStartListener,
-        IAppStopListener
+        IAppQuitListener
     {
         [ServiceInject]
         private QualitySettingsRepository repository;
@@ -24,7 +24,7 @@ namespace Game.App
             QualitySettingsManager.OnLevelChanged += this.SaveSettings;
         }
 
-        void IAppStopListener.Stop()
+        void IAppQuitListener.OnQuit()
         {
             QualitySettingsManager.OnLevelChanged -= this.SaveSettings;
         }

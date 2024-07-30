@@ -21,12 +21,12 @@ namespace Game.Gameplay
 
         public int CurrentAmount
         {
-            get { return this.storage.Value; }
+            get { return this.storage.Current; }
         }
 
         public int AvailableAmount
         {
-            get { return this.storage.MaxValue - this.storage.Value; }
+            get { return this.storage.MaxValue - this.storage.Current; }
         }
 
         public bool IsFull
@@ -36,7 +36,7 @@ namespace Game.Gameplay
 
         public bool IsEmpty
         {
-            get { return this.storage.Value <= 0; }
+            get { return this.storage.Current <= 0; }
         }
 
         public ResourceType ResourceType
@@ -56,12 +56,12 @@ namespace Game.Gameplay
 
         public void SetupAmount(int currentAmount)
         {
-            this.storage.Value = currentAmount;
+            this.storage.Current = currentAmount;
         }
 
         public void PutAmount(int range)
         {
-            this.storage.Value += range;
+            this.storage.Current += range;
         }
     }
 }

@@ -1,12 +1,12 @@
 using Elementary;
-using MonoOptimization;
+using Declarative;
 
 namespace Game.Gameplay.Conveyors
 {
     public sealed class ZoneVisualAdapter :
-        IAwakeComponent,
-        IEnableComponent,
-        IDisableComponent
+        IAwakeListener,
+        IEnableListener,
+        IDisableListener
     {
         private IVariableLimited<int> storage;
 
@@ -18,17 +18,17 @@ namespace Game.Gameplay.Conveyors
             this.visualZone = visualZone;
         }
 
-        void IAwakeComponent.Awake()
+        void IAwakeListener.Awake()
         {
-            this.visualZone.SetupItems(this.storage.Value);
+            this.visualZone.SetupItems(this.storage.Current);
         }
 
-        void IEnableComponent.OnEnable()
+        void IEnableListener.OnEnable()
         {
             this.storage.OnValueChanged += this.OnItemsChanged;
         }
 
-        void IDisableComponent.OnDisable()
+        void IDisableListener.OnDisable()
         {
             this.storage.OnValueChanged -= this.OnItemsChanged;
         }

@@ -23,7 +23,7 @@ namespace Game.Gameplay.Player
         [SerializeField]
         private MoneyStorage storage;
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.PreviousMoney = this.storage.Money;
             this.CurrentMoney = this.storage.Money;

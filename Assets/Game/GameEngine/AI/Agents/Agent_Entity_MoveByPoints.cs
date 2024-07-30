@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.GameEngine.AI
 {
-    public class Agent_Entity_MoveByPoints : Agent_MoveByPath<Vector3>
+    public sealed class Agent_Entity_MoveByPoints : Agent_MoveByPoints<Vector3>
     {
         private IComponent_MoveInDirection moveComponent;
 
@@ -13,9 +13,9 @@ namespace Game.GameEngine.AI
         
         private float sqrStoppingDistance = 0.01f;
 
-        public Agent_Entity_MoveByPoints(MonoBehaviour coroutineDispatcher) : 
-            base(coroutineDispatcher, new WaitForFixedUpdate())
+        public Agent_Entity_MoveByPoints() 
         {
+            this.SetFramePeriod(new WaitForFixedUpdate());
         }
 
         public void SetMovingEntity(IEntity movingEntity)

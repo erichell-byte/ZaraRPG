@@ -1,22 +1,56 @@
+using System;
 using Elementary;
-using MonoOptimization;
+using Declarative;
 
 namespace Game.GameEngine.Mechanics
 {
-    public abstract class EventMechanics : IEnableComponent, IDisableComponent
+    public sealed class EventMechanics :
+        IEnableListener,
+        IDisableListener
     {
-        public IEmitter emitter;
+        private IEmitter emitter;
 
-        void IEnableComponent.OnEnable()
+        private Action action;
+
+        public void Construct(IEmitter emitter, Action action)
         {
-            this.emitter.OnEvent += this.OnEvent;
+            this.emitter = emitter;
+            this.action = action;
         }
 
-        void IDisableComponent.OnDisable()
+        void IEnableListener.OnEnable()
         {
-            this.emitter.OnEvent -= this.OnEvent;
+            this.emitter.OnEvent += this.action;
         }
 
-        protected abstract void OnEvent();
+        void IDisableListener.OnDisable()
+        {
+            this.emitter.OnEvent -= this.action;
+        }
+    }
+    
+    public sealed class EventMechanics<T> :
+        IEnableListener,
+        IDisableListener
+    {
+        private IEmitter<T> emitter;
+
+        private Action<T> action;
+
+        public void Construct(IEmitter<T> emitter, Action<T> action)
+        {
+            this.emitter = emitter;
+            this.action = action;
+        }
+
+        void IEnableListener.OnEnable()
+        {
+            this.emitter.OnEvent += this.action;
+        }
+
+        void IDisableListener.OnDisable()
+        {
+            this.emitter.OnEvent -= this.action;
+        }
     }
 }

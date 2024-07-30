@@ -230,7 +230,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5358603104446136671}
         m_TargetAssemblyTypeName: MyLittleUniverse.UISoundComponent, Assembly-CSharp
-        m_MethodName: PlayBuy
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

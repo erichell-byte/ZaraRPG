@@ -1,12 +1,14 @@
+using JetBrains.Annotations;
 using Services;
 using UnityEngine;
 
 namespace Game.App
 {
+    [UsedImplicitly]
     public sealed class LanguageMediator :
         IAppInitListener,
         IAppStartListener,
-        IAppStopListener
+        IAppQuitListener
     {
         private const string CONFIG_PATH = "LanguageCatalog";
 
@@ -24,7 +26,7 @@ namespace Game.App
             LanguageManager.OnLanguageChanged += this.SaveLanguage;
         }
 
-        void IAppStopListener.Stop()
+        void IAppQuitListener.OnQuit()
         {
             LanguageManager.OnLanguageChanged -= this.SaveLanguage;
         }

@@ -1,9 +1,8 @@
-using UIFrames;
-using UIFrames.Unity;
+using Windows;
 
 namespace Game.GameEngine
 {
-    public sealed class PopupManager : PopupManager<PopupName, UnityFrame>
+    public sealed class PopupManager : PopupManager<PopupName, MonoWindow>
     {
     }
 }

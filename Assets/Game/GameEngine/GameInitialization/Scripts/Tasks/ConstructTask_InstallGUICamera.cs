@@ -9,9 +9,9 @@ namespace Game.GameEngine
         fileName = "Task «Install GUICamera»",
         menuName = "GameEngine/Construct/New Task «Install GUICamera»"
     )]
-    public sealed class ConstructTask_InstallGUICamera : ConstructTask
+    public sealed class ConstructTask_InstallGUICamera : GameContext.ConstructTask
     {
-        public override void Construct(IGameContext gameContext)
+        public override void Construct(GameContext gameContext)
         {
             var worldCameraData = WorldCamera.Instance.GetUniversalAdditionalCameraData();
             var uiCamera = gameContext.GetService<GUICameraService>().Camera;

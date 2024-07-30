@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecd207b355c4374a891fa7fba2ad003, type: 3}
   m_Name: DebugMoneyConfig
   m_EditorClassIdentifier: 
-  debugMode: 1
+  debugMode: 0
   money: 10000

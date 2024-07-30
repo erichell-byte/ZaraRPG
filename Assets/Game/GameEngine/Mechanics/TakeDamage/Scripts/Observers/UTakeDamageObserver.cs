@@ -6,7 +6,7 @@ namespace Game.GameEngine.Mechanics
     public abstract class UTakeDamageObserver : MonoBehaviour
     {
         [SerializeField]
-        public UnityEntity unit;
+        public MonoEntity unit;
         
         private IComponent_OnDamageTaken takeDamageComponent;
 

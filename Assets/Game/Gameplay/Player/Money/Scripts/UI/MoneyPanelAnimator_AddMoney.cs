@@ -119,7 +119,7 @@ namespace Game.Gameplay.Player
             }
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.particlePool = context.GetService<GUIParticlePoolService>().ImagePool;
             this.uiCamera = context.GetService<GUICameraService>().Camera;

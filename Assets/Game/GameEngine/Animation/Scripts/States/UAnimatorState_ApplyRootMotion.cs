@@ -7,7 +7,7 @@ namespace Game.GameEngine.Animation
     public sealed class UAnimatorState_ApplyRootMotion : MonoState
     {
         [SerializeField]
-        private UAnimatorSystem system;
+        private UAnimatorMachine system;
 
         public override void Enter()
         {

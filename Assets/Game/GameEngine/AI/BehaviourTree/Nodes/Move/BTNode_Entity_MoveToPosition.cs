@@ -10,38 +10,27 @@ namespace Game.GameEngine.AI
     [Serializable]
     public sealed class BTNode_Entity_MoveToPosition : BehaviourNode
     {
-        public string UnitKey
-        {
-            set => unitKey = value;
-        }
+        private readonly Agent_Entity_MoveToPosition moveAgent = new();
 
-        public string MovePositionKey
-        {
-            set => movePositionKey = value;
-        }
-
-        private IBlackboard blackboard;
-
-        [Space]
-        [BlackboardKey]
-        [SerializeField]
         private string unitKey;
 
-        [BlackboardKey]
-        [SerializeField]
         private string movePositionKey;
 
-        private Agent_Entity_MoveToPosition moveAgent;
+        private IBlackboard blackboard;
+        
+        public void ConstructBlackboardKeys(string unitKey, string movePositionKey)
+        {
+            this.unitKey = unitKey;
+            this.movePositionKey = movePositionKey;
+        }
 
-        public void Construct(
-            MonoBehaviour monoContext,
-            IBlackboard blackboard,
-            float stoppingDistance
-        )
+        public void ConstructBlackboard(IBlackboard blackboard)
         {
             this.blackboard = blackboard;
+        }
 
-            this.moveAgent = new Agent_Entity_MoveToPosition(monoContext);
+        public void ConstructStoppingDistance(float stoppingDistance)
+        {
             this.moveAgent.SetStoppingDistance(stoppingDistance);
         }
 
@@ -73,7 +62,7 @@ namespace Game.GameEngine.AI
             }
         }
 
-        protected override void OnEnd()
+        protected override void OnDispose()
         {
             this.moveAgent.OnTargetReached -= this.OnTargetReached;
             this.moveAgent.Stop();

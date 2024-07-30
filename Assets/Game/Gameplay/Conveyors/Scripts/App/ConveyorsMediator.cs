@@ -1,54 +1,29 @@
 using Entities;
 using Game.App;
 using Game.GameEngine.Mechanics;
-using Services;
 
 namespace Game.Gameplay.Conveyors
 {
-    public sealed class ConveyorsMediator : IGameLoadDataListener, IGameSaveDataListener
+    public sealed class ConveyorsMediator : BaseMediator<ConveyorsRepository, ConveyorsService>
     {
-        [ServiceInject]
-        private ConveyorsRepository repository;
-
-        private ConveyorsService conveyorsService;
-
-        void IGameLoadDataListener.OnLoadData(GameManager gameManager)
+        protected override void OnLoadData(ConveyorsRepository repository, ConveyorsService service)
         {
-            this.conveyorsService = gameManager.GetService<ConveyorsService>();
-            if (this.repository.LoadConveyors(out var conveyorsData))
+            if (!repository.LoadConveyors(out var conveyorsData))
             {
-                this.SetupConveyours(conveyorsData);
+                return;
             }
-        }
 
-        void IGameSaveDataListener.OnSaveData(GameSaveReason reason)
-        {
-            this.SaveConveyours();
-        }
-
-        private void SetupConveyours(ConveyorData[] conveyorsData)
-        {
             for (int i = 0, count = conveyorsData.Length; i < count; i++)
             {
                 var data = conveyorsData[i];
-                this.SetupConveyor(data);
+                var conveyor = service.FindConveyor(data.id);
+                SetupConveyor(conveyor, data);
             }
         }
 
-        private void SetupConveyor(ConveyorData data)
+        protected override void OnSaveData(ConveyorsRepository repository, ConveyorsService service)
         {
-            var conveyor = this.conveyorsService.FindConveyor(data.id);
-            conveyor
-                .Get<IComponent_LoadZone>()
-                .SetupAmount(data.inputAmount);
-            conveyor
-                .Get<IComponent_UnloadZone>()
-                .SetupAmount(data.outputAmount);
-        }
-
-        private void SaveConveyours()
-        {
-            var conveyors = this.conveyorsService.GetAllConveyors();
+            var conveyors = service.GetAllConveyors();
             var count = conveyors.Length;
             var dataArray = new ConveyorData[count];
 
@@ -59,7 +34,17 @@ namespace Game.Gameplay.Conveyors
                 dataArray[i] = data;
             }
 
-            this.repository.SaveConveyors(dataArray);
+            repository.SaveConveyors(dataArray);
+        }
+
+        private static void SetupConveyor(IEntity conveyor, ConveyorData data)
+        {
+            conveyor
+                .Get<IComponent_LoadZone>()
+                .SetupAmount(data.inputAmount);
+            conveyor
+                .Get<IComponent_UnloadZone>()
+                .SetupAmount(data.outputAmount);
         }
 
         private static ConveyorData ConvertToData(IEntity conveyor)

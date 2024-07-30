@@ -8,7 +8,7 @@ namespace Game.GameEngine.Mechanics
     public sealed class UMoveInDirectionState_Rotation : MonoState
     {
         [SerializeField]
-        private UMoveInDirectionEngine moveEngine;
+        private UMoveInDirectionMotor moveEngine;
         
         [SerializeField]
         private UTransformEngine transformEngine;
@@ -53,7 +53,7 @@ namespace Game.GameEngine.Mechanics
             }
             else if (this.mode == Mode.SMOOTH)
             {
-                this.transformEngine.RotateTowardsInDirection(direction, this.speed.Value, Time.deltaTime);
+                this.transformEngine.RotateTowardsInDirection(direction, this.speed.Current, Time.deltaTime);
             }
         }
 

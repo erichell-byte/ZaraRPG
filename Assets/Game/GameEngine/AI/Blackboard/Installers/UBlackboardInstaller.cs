@@ -14,7 +14,7 @@ namespace Game.Gameplay.AI
         [SerializeField]
         private UnityVariable[] unityVariables;
 
-        protected override void Install(IBlackboard blackboard, IGameContext context)
+        protected override void Install(IBlackboard blackboard, GameContext context)
         {
             for (int i = 0, count = this.referenceVariables.Length; i < count; i++)
             {

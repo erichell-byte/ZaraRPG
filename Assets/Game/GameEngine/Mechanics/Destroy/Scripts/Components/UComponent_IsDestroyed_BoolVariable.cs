@@ -21,10 +21,10 @@ namespace Game.GameEngine.Mechanics
         {
             if (this.invert)
             {
-                return this.isDestroyed.Value;
+                return this.isDestroyed.Current;
             }
             
-            return this.isDestroyed.Value;
+            return this.isDestroyed.Current;
         }
     }
 }

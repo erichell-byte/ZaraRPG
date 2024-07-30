@@ -28,7 +28,7 @@ namespace Game.App
                 .Append($"<color=#{this.colorHtml}>")
                 .Append($"{eventName}");
 
-            if (parameters != null && parameters.Length > 0)
+            if (parameters is {Length: > 0})
             {
                 this.stringBuilder.Append(", parameters: ");
                 foreach (var parameter in parameters)

@@ -16,28 +16,28 @@ namespace Game.GameEngine.Mechanics
     {
         public event Action<int> OnHitPointsChanged
         {
-            add { this.engine.OnHitPointsChanged += value; }
-            remove { this.engine.OnHitPointsChanged -= value; }
+            add { this.engine.OnCurrentPointsChanged += value; }
+            remove { this.engine.OnCurrentPointsChanged -= value; }
         }
 
         public event Action<int> OnMaxHitPointsChanged
         {
-            add { this.engine.OnMaxHitPointsChanged += value; }
-            remove { this.engine.OnMaxHitPointsChanged -= value; }
+            add { this.engine.OnMaxPointsChanged += value; }
+            remove { this.engine.OnMaxPointsChanged -= value; }
         }
 
         public int HitPoints
         {
-            get { return this.engine.CurrentHitPoints; }
+            get { return this.engine.Current; }
         }
 
         public int MaxHitPoints
         {
-            get { return this.engine.MaxHitPoints; }
+            get { return this.engine.Max; }
         }
 
         [SerializeField]
-        private UHitPointsEngine engine;
+        private UHitPoints engine;
 
         public void Setup(int current, int max)
         {
@@ -46,17 +46,17 @@ namespace Game.GameEngine.Mechanics
 
         public void SetHitPoints(int hitPoints)
         {
-            this.engine.CurrentHitPoints = hitPoints;
+            this.engine.Current = hitPoints;
         }
 
         public void SetMaxHitPoints(int hitPoints)
         {
-            this.engine.MaxHitPoints = hitPoints;
+            this.engine.Max = hitPoints;
         }
 
         public void AddHitPoints(int range)
         {
-            this.engine.CurrentHitPoints += range;
+            this.engine.Current += range;
         }
     }
 }

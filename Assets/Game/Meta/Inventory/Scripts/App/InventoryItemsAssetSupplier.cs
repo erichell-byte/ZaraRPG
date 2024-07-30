@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Meta
 {
-    public sealed class InventoryItemsAssetSupplier : IAppConfigsLoader
+    public sealed class InventoryItemsAssetSupplier : IConfigLoader
     {
         private InventoryItemCatalog catalog;
 
@@ -18,7 +18,7 @@ namespace Game.Meta
             return this.catalog.GetAllItems();
         }
 
-        void IAppConfigsLoader.LoadConfigs()
+        void IConfigLoader.LoadConfigs()
         {
             this.catalog = Resources.Load<InventoryItemCatalog>("InventoryItemCatalog");
         }

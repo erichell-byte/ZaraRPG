@@ -7,15 +7,18 @@ namespace Game.GameEngine.AI
 {
     public sealed class BTNode_Iterator_MoveNext : BehaviourNode
     {
-        [BlackboardKey]
-        [SerializeField]
-        public string iteratorKey;
+        private string iteratorKey;
 
         private IBlackboard blackboard;
 
-        public void Construct(IBlackboard blackboard)
+        public void ConstructBlackboard(IBlackboard blackboard)
         {
             this.blackboard = blackboard;
+        }
+
+        public void ConstructBlackboardKeys(string iteratorKey)
+        {
+            this.iteratorKey = iteratorKey;
         }
         
         protected override void Run()

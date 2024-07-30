@@ -1,4 +1,5 @@
 using System;
+using Elementary;
 
 namespace Game.GameEngine.Mechanics
 {
@@ -6,41 +7,41 @@ namespace Game.GameEngine.Mechanics
     {
         public event Action<HarvestResourceOperation> OnHarvestStarted
         {
-            add { this.harvestEngine.OnHarvestStarted += value; }
-            remove { this.harvestEngine.OnHarvestStarted -= value; }
+            add { this.harvestOperator.OnStarted += value; }
+            remove { this.harvestOperator.OnStarted -= value; }
         }
 
         public event Action<HarvestResourceOperation> OnHarvestStopped
         {
-            add { this.harvestEngine.OnHarvestStopped += value; }
-            remove { this.harvestEngine.OnHarvestStopped -= value; }
+            add { this.harvestOperator.OnStopped += value; }
+            remove { this.harvestOperator.OnStopped -= value; }
         }
 
         public bool IsHarvesting
         {
-            get { return this.harvestEngine.IsHarvesting; }
+            get { return this.harvestOperator.IsActive; }
         }
 
-        private readonly UHarvestResourceEngine harvestEngine;
+        private readonly IOperator<HarvestResourceOperation> harvestOperator;
 
-        public Component_HarvestResource(UHarvestResourceEngine harvestEngine)
+        public Component_HarvestResource(IOperator<HarvestResourceOperation> harvestOperator)
         {
-            this.harvestEngine = harvestEngine;
+            this.harvestOperator = harvestOperator;
         }
 
         public bool CanStartHarvest(HarvestResourceOperation operation)
         {
-            return this.harvestEngine.CanStartHarvest(operation);
+            return this.harvestOperator.CanStart(operation);
         }
 
         public void StartHarvest(HarvestResourceOperation operation)
         {
-            this.harvestEngine.StartHarvest(operation);
+            this.harvestOperator.DoStart(operation);
         }
 
         public void StopHarvest()
         {
-            this.harvestEngine.StopHarvest();
+            this.harvestOperator.Stop();
         }
     }
 }

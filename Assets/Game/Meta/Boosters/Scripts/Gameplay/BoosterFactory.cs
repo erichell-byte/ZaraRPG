@@ -1,19 +1,15 @@
 using GameSystem;
-using UnityEngine;
 
 namespace Game.Meta
 {
     public sealed class BoosterFactory
     {
         [GameInject]
-        private MonoBehaviour monoContext;
-        
-        [GameInject]
-        private IGameContext gameContext;
+        private GameContext gameContext;
         
         public Booster CreateBooster(BoosterConfig config)
         {
-            var booster = config.InstantiateBooster(this.monoContext);
+            var booster = config.InstantiateBooster();
             GameInjector.Inject(this.gameContext, booster);
             return booster;
         }

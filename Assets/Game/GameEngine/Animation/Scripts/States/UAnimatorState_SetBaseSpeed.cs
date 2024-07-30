@@ -8,7 +8,7 @@ namespace Game.GameEngine
     public sealed class UAnimatorState_SetBaseSpeed : MonoState
     {
         [SerializeField]
-        private UAnimatorSystem animationSystem;
+        private UAnimatorMachine animationSystem;
 
         [Space]
         [SerializeField]
@@ -16,7 +16,7 @@ namespace Game.GameEngine
 
         public override void Enter()
         {
-            this.animationSystem.SetBaseSpeed(this.speed.Value);
+            this.animationSystem.SetBaseSpeed(this.speed.Current);
         }
     }
 }

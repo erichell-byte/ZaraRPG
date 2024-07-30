@@ -40,7 +40,7 @@ namespace Game.GameEngine.Mechanics
 
         private void UpdateSpeed()
         {
-            var newSpeed = this.baseSpeed.Value * this.multiplier.Value;
+            var newSpeed = this.baseSpeed.Current * this.multiplier.Current;
             this.fullSpeed.SetValue(newSpeed);
         }
     }

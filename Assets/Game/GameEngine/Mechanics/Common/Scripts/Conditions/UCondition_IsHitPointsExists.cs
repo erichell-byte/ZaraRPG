@@ -7,11 +7,11 @@ namespace Game.GameEngine.Mechanics
     public sealed class UCondition_IsHitPointsExists : MonoCondition
     {
         [SerializeField]
-        public UHitPointsEngine engine;
+        public UHitPoints engine;
         
         public override bool IsTrue()
         {
-            return this.engine.CurrentHitPoints > 0;
+            return this.engine.Current > 0;
         }
     }
 }

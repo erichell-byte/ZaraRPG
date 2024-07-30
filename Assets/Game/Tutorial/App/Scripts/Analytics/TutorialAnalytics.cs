@@ -7,22 +7,18 @@ namespace Game.Tutorial.App
         public static void LogTutorialStarted()
         {
             const string eventName = "tutorial_started";
-            const string key = "analytics/" + eventName;
-
-            if (PlayerPreferences.KeyExists(key))
-            {
-                return;
-            }
-
-            AnalyticsManager.LogEvent(eventName);
-            PlayerPreferences.Save(key, 1);
+            LogEventAndCache(eventName);
         }
 
         public static void LogTutorialCompleted()
         {
             const string eventName = "tutorial_completed";
-            const string key = "analytics/" + eventName;
+            LogEventAndCache(eventName);
+        }
 
+        public static void LogEventAndCache(string eventName)
+        {
+            var key = "tutorial_analytics/" + eventName;
             if (PlayerPreferences.KeyExists(key))
             {
                 return;

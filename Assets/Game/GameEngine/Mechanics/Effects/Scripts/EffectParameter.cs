@@ -5,7 +5,7 @@ namespace Game.GameEngine.Mechanics
 {
     public interface IEffectParameter
     {
-        EffectParameterKey Name { get; }
+        EffectId Name { get; }
     }
 
     public interface IEffectParameter<out T> : IEffectParameter
@@ -16,7 +16,7 @@ namespace Game.GameEngine.Mechanics
     [Serializable]
     public abstract class AbstractEffectParameter<T> : IEffectParameter<T>
     {
-        public EffectParameterKey Name
+        public EffectId Name
         {
             get { return this.name; }
         }
@@ -27,7 +27,7 @@ namespace Game.GameEngine.Mechanics
         }
 
         [SerializeField]
-        private EffectParameterKey name;
+        private EffectId name;
 
         [SerializeField]
         private T value;
@@ -36,7 +36,7 @@ namespace Game.GameEngine.Mechanics
         {
         }
 
-        public AbstractEffectParameter(EffectParameterKey name, T value)
+        public AbstractEffectParameter(EffectId name, T value)
         {
             this.name = name;
             this.value = value;
@@ -50,7 +50,7 @@ namespace Game.GameEngine.Mechanics
         {
         }
 
-        public IntEffectParameter(EffectParameterKey name, int value) : base(name, value)
+        public IntEffectParameter(EffectId name, int value) : base(name, value)
         {
         }
     }
@@ -62,7 +62,7 @@ namespace Game.GameEngine.Mechanics
         {
         }
 
-        public FloatEffectParameter(EffectParameterKey name, float value) : base(name, value)
+        public FloatEffectParameter(EffectId name, float value) : base(name, value)
         {
         }
     }
@@ -74,7 +74,7 @@ namespace Game.GameEngine.Mechanics
         {
         }
 
-        public StringEffectParameter(EffectParameterKey name, string value) : base(name, value)
+        public StringEffectParameter(EffectId name, string value) : base(name, value)
         {
         }
     }

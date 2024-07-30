@@ -13,7 +13,7 @@ namespace Game.GameEngine.Mechanics
 
         public bool IsEnable
         {
-            get { return this.isEnable.Value; }
+            get { return this.isEnable.Current; }
         }
 
         private readonly IVariable<bool> isEnable;
@@ -25,7 +25,7 @@ namespace Game.GameEngine.Mechanics
 
         public void SetEnable(bool isEnable)
         {
-            this.isEnable.Value = isEnable;
+            this.isEnable.Current = isEnable;
         }
     }
 }

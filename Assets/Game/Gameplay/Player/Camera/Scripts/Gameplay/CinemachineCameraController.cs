@@ -1,4 +1,5 @@
 using Cinemachine;
+using Game.GameEngine.Mechanics;
 using Game.Gameplay.Hero;
 using GameSystem;
 
@@ -21,7 +22,7 @@ namespace Game.Gameplay.Player
         void IGameStartElement.StartGame()
         {
             var hero = this.heroService.GetHero();
-            this.virtualCamera.Follow = hero.Get<Component_CinemachineFollowPoint>().Point;
+            this.virtualCamera.Follow = hero.Get<IComponent_GetPivot>().Pivot;
             this.virtualCamera.enabled = true;
         }
 

@@ -12,9 +12,9 @@ namespace Game.Meta
         [SerializeField]
         public float incomeCoefficient = 2.0f;
 
-        public override Booster InstantiateBooster(MonoBehaviour context)
+        public override Booster InstantiateBooster()
         {
-            return new IncomeBooster(this, context);
+            return new IncomeBooster(this);
         }
     }
 }

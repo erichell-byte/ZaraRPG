@@ -21,7 +21,7 @@ namespace Game.GameEngine.Mechanics
             while (true)
             {
                 var targetPosiiton = this.GetTargetPosition();
-                var distanceReached = this.transformEngine.IsDistanceReached(targetPosiiton, this.minDistance.Value);
+                var distanceReached = this.transformEngine.IsDistanceReached(targetPosiiton, this.minDistance.Current);
                 this.OnUpdate(distanceReached);
                 yield return period;
             }

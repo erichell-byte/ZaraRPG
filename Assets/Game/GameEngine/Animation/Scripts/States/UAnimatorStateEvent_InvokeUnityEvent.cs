@@ -10,7 +10,7 @@ namespace Game.GameEngine.Animation
     {
         [Space]
         [SerializeField]
-        private UAnimatorSystem animationSystem;
+        private UAnimatorMachine animationSystem;
         
         [SerializeField]
         private UnityEvent unityEvent;

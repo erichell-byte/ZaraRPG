@@ -8,7 +8,7 @@ namespace Game.GameEngine.Mechanics
     {
         public string Id
         {
-            get { return this.id.Value; }
+            get { return this.id.Current; }
         }
 
         [SerializeField]

@@ -12,7 +12,7 @@ namespace Game.GameEngine.Mechanics
         bool CanDestroy();
     }
 
-    public interface IComponent_Destoy
+    public interface IComponent_Destroy
     {
         void Destroy();
     }

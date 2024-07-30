@@ -1,13 +1,12 @@
-using System;
 using Game.UI;
 using TMPro;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.Meta
 {
-    public sealed class InventoryItemPopup : UnityFrame
+    public sealed class InventoryItemPopup : MonoWindow<IInventoryItemPresentationModel>
     {
         [SerializeField]
         private TextMeshProUGUI titleText;
@@ -25,24 +24,11 @@ namespace Game.Meta
         [SerializeField]
         private StackView stackView;
 
-        private IPresenter presenter;
+        private IInventoryItemPresentationModel presenter;
         
-        private void OnEnable()
+        protected override void OnShow(IInventoryItemPresentationModel presenter)
         {
-            this.consumeButton.onClick.AddListener(this.OnConsumeButtonClicked);
-        }
-
-        private void OnDisable()
-        {
-            this.consumeButton.onClick.RemoveListener(this.OnConsumeButtonClicked);
-        }
-
-        protected override void OnShow(object args)
-        {
-            if (args is not IPresenter presenter)
-            {
-                throw new Exception("Expected Presenter!");
-            }
+            this.presenter = presenter;
 
             this.titleText.text = presenter.Title;
             this.decriptionText.text = presenter.Description;
@@ -50,16 +36,20 @@ namespace Game.Meta
 
             this.SetupStackContainer(presenter);
             this.SetupConsumeButton(presenter);
-            
-            this.presenter = presenter;
+            this.consumeButton.onClick.AddListener(this.OnConsumeButtonClicked);
         }
-        
+
+        protected override void OnHide()
+        {
+            this.consumeButton.onClick.RemoveListener(this.OnConsumeButtonClicked);
+        }
+
         private void OnConsumeButtonClicked()
         {
             this.presenter.OnConsumeClicked();
         }
 
-        private void SetupStackContainer(IPresenter presenter)
+        private void SetupStackContainer(IInventoryItemPresentationModel presenter)
         {
             var isStackableItem = presenter.IsStackableItem();
             this.stackView.SetVisible(isStackableItem);
@@ -71,7 +61,7 @@ namespace Game.Meta
             }
         }
 
-        private void SetupConsumeButton(IPresenter presenter)
+        private void SetupConsumeButton(IInventoryItemPresentationModel presenter)
         {
             var isConsumableItem = presenter.IsConsumableItem();
             this.consumeButton.gameObject.SetActive(isConsumableItem);
@@ -79,25 +69,6 @@ namespace Game.Meta
             {
                 this.consumeButton.interactable = presenter.CanConsumeItem();
             }
-        }
-        
-        public interface IPresenter
-        {
-            string Title { get; }
-            
-            string Description { get; }
-            
-            Sprite Icon { get; }
-            
-            bool IsStackableItem(); 
-
-            void GetStackInfo(out int current, out int size);
-
-            bool IsConsumableItem();
-
-            bool CanConsumeItem();
-            
-            void OnConsumeClicked();
         }
     }
 }

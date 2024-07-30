@@ -17,7 +17,7 @@ namespace Game.GameEngine
             this.popupManager.HidePopup(this.popupName);
         }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.popupManager = context.GetService<PopupManager>();
         }

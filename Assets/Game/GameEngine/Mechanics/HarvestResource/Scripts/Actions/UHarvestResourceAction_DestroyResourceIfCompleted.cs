@@ -9,7 +9,7 @@ namespace Game.GameEngine.Mechanics
         {
             if (operation.isCompleted)
             {
-                operation.targetResource.Get<IComponent_Destoy>().Destroy();
+                operation.targetResource.Get<IComponent_Destroy>().Destroy();
             }
         }
     }

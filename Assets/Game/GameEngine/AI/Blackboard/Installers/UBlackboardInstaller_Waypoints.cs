@@ -20,7 +20,7 @@ namespace Game.Gameplay.AI
         [SerializeField]
         private string iteratorKey;
 
-        protected override void Install(IBlackboard blackboard, IGameContext context)
+        protected override void Install(IBlackboard blackboard, GameContext context)
         {
             var iterator = this.CreateIterator();
             blackboard.AddVariable(this.iteratorKey, iterator);

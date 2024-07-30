@@ -18,7 +18,7 @@ namespace Game.GameEngine.Mechanics
 
         public int Damage
         {
-            get { return this.damage.Value; }
+            get { return this.damage.Current; }
         }
 
         [SerializeField]

@@ -1,10 +1,9 @@
-using UIFrames;
-using UIFrames.Unity;
+using Windows;
 using UnityEngine;
 
 namespace Game.GameEngine
 {
-    public sealed class PopupFactory : IFrameFactory<PopupName, UnityFrame>
+    public sealed class PopupFactory : IWindowFactory<PopupName, MonoWindow>
     {
         private PopupCatalog catalog;
 
@@ -16,7 +15,7 @@ namespace Game.GameEngine
             this.container = container;
         }
 
-        public UnityFrame CreateFrame(PopupName key)
+        public MonoWindow CreateWindow(PopupName key)
         {
             var prefab = this.catalog.LoadPrefab(key);
             var popup = GameObject.Instantiate(prefab, this.container);

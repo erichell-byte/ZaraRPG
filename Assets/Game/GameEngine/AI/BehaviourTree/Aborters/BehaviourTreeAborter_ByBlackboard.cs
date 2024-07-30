@@ -2,54 +2,43 @@ using System;
 using System.Collections.Generic;
 using AI.Blackboards;
 using AI.BTree;
-using MonoOptimization;
+using Declarative;
 using UnityEngine;
 
 namespace Game.GameEngine.AI
 {
     [Serializable]
     public sealed class BehaviourTreeAborter_ByBlackboard :
-        IEnableComponent,
-        IDisableComponent,
-        IUpdateComponent
+        IEnableListener,
+        IDisableListener,
+        IUpdateListener
     {
-        private IBehaviourTree behaviourTree;
+        public IBehaviourTree tree;
 
-        private IBlackboard blackboard;
-
-        private bool abortRequired;
+        public IBlackboard blackboard;
         
         [BlackboardKey]
         [SerializeField]
-        private List<string> blackboardKeys;
+        public List<string> blackboardKeys;
 
-        public void Construct(IBehaviourTree behaviourTree, IBlackboard blackboard)
-        {
-            this.behaviourTree = behaviourTree;
-            this.blackboard = blackboard;
-        }
+        private bool abortRequired;
 
-        public void SetBlackboardKeys(params string[] keys)
-        {
-            this.blackboardKeys = new List<string>(keys);
-        }
-
-        void IEnableComponent.OnEnable()
+        void IEnableListener.OnEnable()
         {
             this.blackboard.OnVariableAdded += this.OnVariableChanged;
             this.blackboard.OnVariableRemoved += this.OnVariableChanged;
         }
 
-        void IUpdateComponent.Update(float deltaTime)
+        void IUpdateListener.Update(float deltaTime)
         {
             if (this.abortRequired)
             {
-                this.behaviourTree.Abort();
+                this.tree.Abort();
                 this.abortRequired = false;
             }
         }
 
-        void IDisableComponent.OnDisable()
+        void IDisableListener.OnDisable()
         {
             this.blackboard.OnVariableAdded -= this.OnVariableChanged;
             this.blackboard.OnVariableRemoved -= this.OnVariableChanged;

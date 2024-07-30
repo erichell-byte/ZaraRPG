@@ -8,11 +8,11 @@ namespace Game.Gameplay.AI
     {
         public IBlackboard Blackboard { private get; set; }
 
-        void IGameConstructElement.ConstructGame(IGameContext context)
+        void IGameConstructElement.ConstructGame(GameContext context)
         {
             this.Install(this.Blackboard, context);
         }
 
-        protected abstract void Install(IBlackboard blackboard, IGameContext context);
+        protected abstract void Install(IBlackboard blackboard, GameContext context);
     }
 }

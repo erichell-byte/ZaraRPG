@@ -18,7 +18,7 @@ namespace Game.GameEngine.Mechanics
             {
                 this.engine.RotateTowardsAtPosition(
                     targetPosition: this.GetTargetPosition(),
-                    speed: this.rotationSpeed.Value,
+                    speed: this.rotationSpeed.Current,
                     deltaTime: Time.deltaTime
                 );
                 yield return null;
