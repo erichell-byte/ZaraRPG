@@ -81,6 +81,11 @@ namespace Purchasing
             this.initCallback = null;
         }
 
+        public void OnInitializeFailed(InitializationFailureReason error, string message)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Purchase
